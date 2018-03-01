@@ -102,8 +102,59 @@ public class MovieKiosk extends JFrame
 			});
 			
 			btnNewButton.setIcon(new ImageIcon("Popcorn.jpg"));
-			btnNewButton.setBounds(10, 41, 200, 200);
+			btnNewButton.setBounds(10, 350, 200, 200);
 			contentPane.add(btnNewButton);
+
+			// Snickers Button
+			JButton btnNewButton2 = new JButton("Snickers");
+			btnNewButton2.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					textArea.append("Snickers      $1.50\r\n");
+					total = total + 1.50;
+					
+					textField.setText(formatter.format(total));
+					textField.repaint();
+				}
+			});
+			
+			btnNewButton2.setIcon(new ImageIcon("Snickers.jpg"));
+			btnNewButton2.setBounds(220, 350, 200, 100);
+			contentPane.add(btnNewButton2);
+			
+			// Regs M&M Button
+			JButton btnNewButton3 = new JButton("M&Ms");
+			btnNewButton3.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					textArea.append("M&Ms      $1.50\r\n");
+					total = total + 1.50;
+					
+					textField.setText(formatter.format(total));
+					textField.repaint();
+				}
+			});
+			
+			btnNewButton3.setIcon(new ImageIcon("RegsMM.jpg"));
+			btnNewButton3.setBounds(220, 460, 200, 100);
+			contentPane.add(btnNewButton3);			
+			
+			// Peanut M&M Button
+			JButton btnNewButton4 = new JButton("Peanut M&Ms");
+			btnNewButton4.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					textArea.append("Peanut M&Ms      $1.50\r\n");
+					total = total + 1.50;
+					
+					textField.setText(formatter.format(total));
+					textField.repaint();
+				}
+			});
+			
+			btnNewButton4.setIcon(new ImageIcon("PeanutMM.jpg"));
+			btnNewButton4.setBounds(220, 570, 200, 100);
+			contentPane.add(btnNewButton4);			
 			
 			/*
 		
@@ -234,7 +285,7 @@ public class MovieKiosk extends JFrame
 			
 			
 			// labels for each product button
-			JLabel lblNewLabel_1 = new JLabel("Click for Popcorn : $3.50");
+			/*JLabel lblNewLabel_1 = new JLabel("Click for Popcorn : $3.50");
 			lblNewLabel_1.setBounds(29, 255, 194, 14);
 			contentPane.add(lblNewLabel_1);
 			/*
