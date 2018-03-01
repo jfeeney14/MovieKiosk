@@ -1,5 +1,3 @@
-//Doug Guida
-//Test 2
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
@@ -42,7 +40,7 @@ public class MovieKiosk extends JFrame
 		public MovieKiosk() 
 		{
 			// Frame title
-			setTitle("--- Food Truck Kiosk ---");
+			setTitle("--- Movie Kiosk ---");
 			
 			NumberFormat formatter = new DecimalFormat("#0.00");
 			
@@ -54,7 +52,7 @@ public class MovieKiosk extends JFrame
 			// panel title
 			JPanel contentPane = new JPanel();
 			contentPane.setBorder(new TitledBorder(new EtchedBorder(), 
-					              "Display Area - Food Truck #1"));;
+					              "Display Area - Movie Kiosk #1"));;
 			setContentPane(contentPane);
 			
 			
@@ -89,22 +87,24 @@ public class MovieKiosk extends JFrame
 			textField3.setText("0.00");
 						
 			
-	/*		// Orange Button
-			JButton btnNewButton = new JButton("Oranges");
+			// Popcorn Button
+			JButton btnNewButton = new JButton("Popcorn");
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					textArea.append("Oranges         .59\r\n");
-					total = total + .59;
+					textArea.append("Popcorn      $3.50\r\n");
+					total = total + 3.50;
 					
 					textField.setText(formatter.format(total));
 					textField.repaint();
 				}
 			});
 			
-			btnNewButton.setIcon(new ImageIcon("Kiosk-Oranges.jpg"));
+			btnNewButton.setIcon(new ImageIcon("Popcorn.jpg"));
 			btnNewButton.setBounds(10, 41, 200, 200);
 			contentPane.add(btnNewButton);
+			
+			/*
 		
 			// Banana Button
 			JButton btnNewButton_b = new JButton("Bananas");
@@ -123,7 +123,7 @@ public class MovieKiosk extends JFrame
 			btnNewButton_b.setBounds(480, 41, 200, 200);
 			contentPane.add(btnNewButton_b);
 			
-			// Apple Button
+			 // popcorn Button
 			JButton btnNewButton_1 = new JButton("Apples");
 			btnNewButton_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) 
@@ -209,7 +209,7 @@ public class MovieKiosk extends JFrame
 			});
 			btnNewButton_3.setBounds(449, 700, 133, 34);
 			contentPane.add(btnNewButton_3);
-			
+			*/
 			// Transaction Complete Button
 						JButton btnNewButton_done = new JButton("Transaction Complete");
 						btnNewButton_done.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -233,10 +233,10 @@ public class MovieKiosk extends JFrame
 			
 			
 			// labels for each product button
-			JLabel lblNewLabel_1 = new JLabel("Click for Oranges : .59 each");
+			JLabel lblNewLabel_1 = new JLabel("Click for Popcorn : $3.50");
 			lblNewLabel_1.setBounds(29, 255, 194, 14);
 			contentPane.add(lblNewLabel_1);
-			
+			/*
 			JLabel lblNewLabel_2 = new JLabel("Click for Pears : .39 each");
 			lblNewLabel_2.setBounds(270, 255, 177, 14);
 			contentPane.add(lblNewLabel_2);
@@ -265,11 +265,13 @@ public class MovieKiosk extends JFrame
 			lblNewLabel_8.setBounds(700, 570, 187, 14);
 			contentPane.add(lblNewLabel_8);
 		
-		*/	
+			*/
 			// user will do the layout
 			contentPane.setLayout(null);
 			
 			// position frame in the middle of the screen
 			this.setLocationRelativeTo(null);
+			
+			
 		}
 }
