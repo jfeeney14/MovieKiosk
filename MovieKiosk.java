@@ -13,6 +13,8 @@ import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.Font;
+import java.awt.Color;
+import javax.swing.SwingConstants;
 
 public class MovieKiosk extends JFrame
 {
@@ -25,6 +27,12 @@ public class MovieKiosk extends JFrame
 		 */
 		double total = 0.0;
 		double change = 0.0;
+		double seniorTicketTotal = 0.0;
+		double adultTicketTotal = 0.0;
+		double childTicketTotal = 0.0;
+		private JTextField amountSeniorTickets;
+		private JTextField amountAdultTickets;
+		private JTextField amountChildTickets;
 
 		/**
 		 * Launch the application.
@@ -57,269 +65,558 @@ public class MovieKiosk extends JFrame
 			setContentPane(contentPane);
 			
 			
-			// list of items that are being bought
+			//List of items that are being bought
 			JTextArea textArea = new JTextArea();
 			textArea.setBounds(763, 11, 168, 382);
 			textArea.setEditable(false);
 
 			contentPane.add(textArea);
 			
-			// field where total accumulating price is being displayed
-			JTextField textField = new JTextField();
-			textField.setEditable(false);
-			textField.setBounds(807, 420, 124, 34);
-			contentPane.add(textField);
-			textField.setColumns(10);
-			textField.setText("0.00");
+			//Field where total accumulating price is being displayed
+			JLabel lblTotal = new JLabel("Total");
+			lblTotal.setBounds(807, 405, 61, 16);
+			contentPane.add(lblTotal);
+			JTextField textFieldTotal = new JTextField();
+			textFieldTotal.setEditable(false);
+			textFieldTotal.setBounds(807, 420, 124, 34);
+			contentPane.add(textFieldTotal);
+			textFieldTotal.setColumns(10);
+			textFieldTotal.setText("0.00");
 			
-			// field for change input
-			JTextField textField2 = new JTextField(); 
-			textField2.setEditable(true);
-			textField2.setBounds(807, 490, 124, 34);
-			contentPane.add(textField2);
-			textField2.setColumns(10);
-			textField2.setText("0.00");
+			//Cash Tendered Field
+			JLabel lblCashTendered = new JLabel("Cash Tendered");
+			lblCashTendered.setBounds(807, 474, 110, 16);
+			contentPane.add(lblCashTendered);
+			JTextField textFieldCashTendered = new JTextField(); 
+			textFieldCashTendered.setEditable(true);
+			textFieldCashTendered.setBounds(807, 490, 124, 34);
+			contentPane.add(textFieldCashTendered);
+			textFieldCashTendered.setColumns(10);
+			textFieldCashTendered.setText("0.00");
 			
-			JTextField textField3 = new JTextField();
-			textField3.setEditable(false);
-			textField3.setBounds(807, 560, 124, 34);
-			contentPane.add(textField3);
-			textField3.setColumns(10);
-			textField3.setText("0.00");
-						
+			//Change Due Field
+			JLabel lblChangeDue = new JLabel("Change Due");
+			lblChangeDue.setBounds(807, 544, 88, 16);
+			contentPane.add(lblChangeDue);
+			JTextField textFieldChangeDue = new JTextField();
+			textFieldChangeDue.setEditable(false);
+			textFieldChangeDue.setBounds(807, 560, 124, 34);
+			contentPane.add(textFieldChangeDue);
+			textFieldChangeDue.setColumns(10);
+			textFieldChangeDue.setText("0.00");			
 			
-			// Popcorn Button
-			JButton btnNewButton = new JButton("Popcorn");
-			btnNewButton.addActionListener(new ActionListener() {
+			// Transaction Complete Button
+			JButton btnNewButton_done = new JButton("Transaction Complete");
+			btnNewButton_done.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			btnNewButton_done.addActionListener(new ActionListener()
+			{
 				public void actionPerformed(ActionEvent e)
 				{
-					textArea.append("Popcorn      $3.50\r\n");
-					total = total + 3.50;
-					
-					textField.setText(formatter.format(total));
-					textField.repaint();
+					String text = textFieldCashTendered.getText();
+					double intCT = Integer.parseInt(text);
+					double change = intCT - total;
+					textFieldChangeDue.setText(Double.toString(change));
 				}
 			});
+			btnNewButton_done.setBounds(700, 650, 250, 34);
+			contentPane.add(btnNewButton_done);
 			
-			btnNewButton.setIcon(new ImageIcon("Popcorn.jpg"));
-			btnNewButton.setBounds(10, 350, 200, 200);
-			contentPane.add(btnNewButton);
-
+			// user will do the layout
+			contentPane.setLayout(null);
+			
+////////////////////////////////////////////
+/////////////SNACK BUTTONS//////////////////
+////////////////////////////////////////////			
+			
 			// Snickers Button
-			JButton btnNewButton2 = new JButton("Snickers");
-			btnNewButton2.addActionListener(new ActionListener() {
+			JButton btnSnickers = new JButton("Snickers");
+			btnSnickers.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
 					textArea.append("Snickers      $1.50\r\n");
 					total = total + 1.50;
 					
-					textField.setText(formatter.format(total));
-					textField.repaint();
+					textFieldTotal.setText(formatter.format(total));
+					textFieldTotal.repaint();
 				}
-			});
-			
-			btnNewButton2.setIcon(new ImageIcon("Snickers.jpg"));
-			btnNewButton2.setBounds(220, 350, 200, 100);
-			contentPane.add(btnNewButton2);
+			});		
+			btnSnickers.setIcon(new ImageIcon("Snickers.jpg"));
+			btnSnickers.setBounds(220, 350, 200, 100);
+			contentPane.add(btnSnickers);
 			
 			// Regs M&M Button
-			JButton btnNewButton3 = new JButton("M&Ms");
-			btnNewButton3.addActionListener(new ActionListener() {
+			JButton btnMMs = new JButton("M&Ms");
+			btnMMs.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
 					textArea.append("M&Ms      $1.50\r\n");
 					total = total + 1.50;
 					
-					textField.setText(formatter.format(total));
-					textField.repaint();
+					textFieldTotal.setText(formatter.format(total));
+					textFieldTotal.repaint();
 				}
 			});
-			
-			btnNewButton3.setIcon(new ImageIcon("RegsMM.jpg"));
-			btnNewButton3.setBounds(220, 460, 200, 100);
-			contentPane.add(btnNewButton3);			
+			btnMMs.setIcon(new ImageIcon("RegsMM.jpg"));
+			btnMMs.setBounds(220, 460, 200, 100);
+			contentPane.add(btnMMs);			
 			
 			// Peanut M&M Button
-			JButton btnNewButton4 = new JButton("Peanut M&Ms");
-			btnNewButton4.addActionListener(new ActionListener() {
+			JButton btnPMMs = new JButton("Peanut M&Ms");
+			btnPMMs.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
 					textArea.append("Peanut M&Ms      $1.50\r\n");
 					total = total + 1.50;
 					
-					textField.setText(formatter.format(total));
-					textField.repaint();
+					textFieldTotal.setText(formatter.format(total));
+					textFieldTotal.repaint();
 				}
 			});
+			btnPMMs.setIcon(new ImageIcon("PeanutMM.jpg"));
+			btnPMMs.setBounds(220, 570, 200, 100);
+			contentPane.add(btnPMMs);			
 			
-			btnNewButton4.setIcon(new ImageIcon("PeanutMM.jpg"));
-			btnNewButton4.setBounds(220, 570, 200, 100);
-			contentPane.add(btnNewButton4);			
-			
-			/*
-		
-			// Banana Button
-			JButton btnNewButton_b = new JButton("Bananas");
-			btnNewButton_b.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e)
-				{
-					textArea.append("Bananas         .59\r\n");
-					total = total + .59;
-					
-					textField.setText(formatter.format(total));
-					textField.repaint();
-				}
-			});
-			
-			btnNewButton_b.setIcon(new ImageIcon("Kiosk-Bananas.jpg"));
-			btnNewButton_b.setBounds(480, 41, 200, 200);
-			contentPane.add(btnNewButton_b);
-			
-			 // popcorn Button
-			JButton btnNewButton_1 = new JButton("Apples");
-			btnNewButton_1.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) 
-				{
-					textArea.append("Apples          .49\r\n");
-					total = total + .49;
-					
-					textField.setText(formatter.format(total));
-					textArea.repaint();
-				}
-			});
-			btnNewButton_1.setIcon(new ImageIcon("Kiosk-Apples.jpg"));
-			btnNewButton_1.setBounds(10, 329, 200, 200);
-			contentPane.add(btnNewButton_1);
-			
-			// Pear Button
-			JButton btnNewButton_2 = new JButton("Pears");
-			btnNewButton_2.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e)
-				{
-					textArea.append("Pears           .39\r\n");
-					total = total + .39;
-					
-					textField.setText(formatter.format(total));
-					textArea.repaint();
-				}
-			});
-			btnNewButton_2.setIcon(new ImageIcon("Kiosk-Pears.jpg"));
-			btnNewButton_2.setBounds(243, 41, 200, 200);
-			contentPane.add(btnNewButton_2);
-			
-			// Grape Button
-			JButton btnNewButton_4 = new JButton("Grapes");
-			btnNewButton_4.addActionListener(new ActionListener()
-			{
-				public void actionPerformed(ActionEvent e) 
-				{
-					textArea.append("Grapes           .89\r\n");
-					total = total + .89;
-										
-					textField.setText(formatter.format(total));
-					textArea.repaint();
-				}
-			});
-			btnNewButton_4.setIcon(new ImageIcon("Kiosk-Grapes.jpg"));
-			btnNewButton_4.setBounds(243, 329, 200, 200);
-			contentPane.add(btnNewButton_4);
-			
-			// Kiwi Button
-						JButton btnNewButton_5 = new JButton("Kiwis");
-						btnNewButton_5.addActionListener(new ActionListener()
-						{
-							public void actionPerformed(ActionEvent e) 
-							{
-								textArea.append("Kiwis           .89\r\n");
-								total = total + .89;
-													
-								textField.setText(formatter.format(total));
-								textArea.repaint();
-							}
-						});
-						btnNewButton_5.setIcon(new ImageIcon("Kiosk-Kiwis.jpg"));
-						btnNewButton_5.setBounds(480, 329, 200, 200);
-						contentPane.add(btnNewButton_5);
-			
-			
-			JLabel lblNewLabel = new JLabel("    Total Price   $");
-			lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			lblNewLabel.setBounds(697, 424, 100, 23);
-			contentPane.add(lblNewLabel);
-			
-			
-			
-			// EXIT Button
-			JButton btnNewButton_3 = new JButton("EXIT");
-			btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			btnNewButton_3.addActionListener(new ActionListener()
-			{
-				public void actionPerformed(ActionEvent e)
-				{
-					System.exit(0);	
-				}
-			});
-			btnNewButton_3.setBounds(449, 700, 133, 34);
-			contentPane.add(btnNewButton_3);
-			*/
-			// Transaction Complete Button
-						JButton btnNewButton_done = new JButton("Transaction Complete");
-						btnNewButton_done.setFont(new Font("Tahoma", Font.PLAIN, 16));
-						btnNewButton_done.addActionListener(new ActionListener()
-						{
-							public void actionPerformed(ActionEvent e)
-							{
-								
-								Double temp = Double.parseDouble(textField2.getText());
-								String temp2 = (temp - total)+"";
-								String temp3 = temp2.substring(temp2.lastIndexOf(".")+1,4);
-								temp2 = temp2.substring(0,temp2.lastIndexOf(".")+1);
-								temp2 = temp2 + temp3;
-							 
-								textField3.setText(temp2);
-								
-							}
-						});
-						btnNewButton_done.setBounds(700, 650, 250, 34);
-						contentPane.add(btnNewButton_done);
-			
-			
-			// labels for each product button
-			/*JLabel lblNewLabel_1 = new JLabel("Click for Popcorn : $3.50");
-			lblNewLabel_1.setBounds(29, 255, 194, 14);
+			//Popcorn Buttons
+			JLabel lblNewLabel_1 = new JLabel("Popcorn");
+			lblNewLabel_1.setIcon(new ImageIcon("Popcorn.jpg"));
+			lblNewLabel_1.setBounds(10, 350, 200, 200);
 			contentPane.add(lblNewLabel_1);
-			/*
-			JLabel lblNewLabel_2 = new JLabel("Click for Pears : .39 each");
-			lblNewLabel_2.setBounds(270, 255, 177, 14);
-			contentPane.add(lblNewLabel_2);
+			JButton smPopcorn = new JButton("S");
+			smPopcorn.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			smPopcorn.setBounds(20, 552, 50, 50);
+			contentPane.add(smPopcorn);
+			smPopcorn.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					textArea.append("Small Popcorn      $5.50\r\n");
+					total = total + 5.50;
+					
+					textFieldTotal.setText(formatter.format(total));
+					textFieldTotal.repaint();
+				}
+			});
 			
-			JLabel lblNewLabel_3 = new JLabel("Click for Apples : .49 each");
-			lblNewLabel_3.setBounds(29, 550, 202, 14);
-			contentPane.add(lblNewLabel_3);
+			JButton mePopcorn = new JButton("M");
+			mePopcorn.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			mePopcorn.setBounds(85, 552, 50, 50);
+			contentPane.add(mePopcorn);
+			mePopcorn.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					textArea.append("Medium Popcorn      $6.50\r\n");
+					total = total + 6.50;
+					
+					textFieldTotal.setText(formatter.format(total));
+					textFieldTotal.repaint();
+				}
+			});
 			
-			JLabel lblNewLabel_4 = new JLabel("Click for Grapes : .89 each");
-			lblNewLabel_4.setBounds(260, 550, 187, 14);
-			contentPane.add(lblNewLabel_4);
+			JButton lgPopcorn = new JButton("L");
+			lgPopcorn.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			lgPopcorn.setBounds(150, 552, 50, 50);
+			contentPane.add(lgPopcorn);
+			lgPopcorn.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					textArea.append("Large Popcorn      $7.50\r\n");
+					total = total + 7.50;
+					
+					textFieldTotal.setText(formatter.format(total));
+					textFieldTotal.repaint();
+				}
+			});
+
+////////////////////////////////////////////
+/////////////DRINK BUTTONS//////////////////
+////////////////////////////////////////////			
 			
-			JLabel lblNewLabel_5 = new JLabel("Click for Bananas : .49 each");
-			lblNewLabel_5.setBounds(490, 255, 202, 14);
-			contentPane.add(lblNewLabel_5);
+			//Soda Buttons
+			JLabel lblSoda = new JLabel("Soda");
+			lblSoda.setBackground(Color.RED);
+			lblSoda.setBounds(452, 350, 110, 158);
+			contentPane.add(lblSoda);
+			lblSoda.setIcon(new ImageIcon("SodaCup.jpeg"));
+			JButton smSoda = new JButton("S");
+			smSoda.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			smSoda.setBounds(452, 520, 30, 30);
+			contentPane.add(smSoda);
+			smSoda.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					textArea.append("Small Soda      $2.50\r\n");
+					total = total + 2.50;
+					
+					textFieldTotal.setText(formatter.format(total));
+					textFieldTotal.repaint();
+				}
+			});
 			
-			JLabel lblNewLabel_6 = new JLabel("Click for Kiwis : .89 each");
-			lblNewLabel_6.setBounds(490, 550, 187, 14);
-			contentPane.add(lblNewLabel_6);
+			JButton meSoda = new JButton("M");
+			meSoda.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			meSoda.setBounds(494, 520, 30, 30);
+			contentPane.add(meSoda);
+			meSoda.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					textArea.append("Medium Soda      $3.00\r\n");
+					total = total + 3.00;
+					
+					textFieldTotal.setText(formatter.format(total));
+					textFieldTotal.repaint();
+				}
+			});
 			
-			JLabel lblNewLabel_7 = new JLabel("Cash Tendered: $");
-			lblNewLabel_7.setBounds(690, 500, 187, 14);
-			contentPane.add(lblNewLabel_7);
+			JButton lgSoda = new JButton("L");
+			lgSoda.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			lgSoda.setBounds(536, 520, 30, 30);
+			contentPane.add(lgSoda);
+			lgSoda.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					textArea.append("Large Soda      $3.50\r\n");
+					total = total + 3.50;
+					
+					textFieldTotal.setText(formatter.format(total));
+					textFieldTotal.repaint();
+				}
+			});
 			
-			JLabel lblNewLabel_8 = new JLabel("Change Due: $");
-			lblNewLabel_8.setBounds(700, 570, 187, 14);
-			contentPane.add(lblNewLabel_8);
-		
-			*/
-			// user will do the layout
-			contentPane.setLayout(null);
+			//Water Buttons
+			JLabel lblWater = new JLabel("Water");
+			lblWater.setBackground(Color.RED);
+			lblWater.setBounds(453, 560, 110, 158);
+			contentPane.add(lblWater);
+			lblWater.setIcon(new ImageIcon("WaterBottle.jpeg"));
+			JButton smWater = new JButton("S");
+			smWater.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			smWater.setBounds(452, 728, 30, 30);
+			contentPane.add(smWater);
+			smWater.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					textArea.append("Small Water      $1.25\r\n");
+					total = total + 1.25;
+					
+					textFieldTotal.setText(formatter.format(total));
+					textFieldTotal.repaint();
+				}
+			});
+			
+			JButton meWater = new JButton("M");
+			meWater.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			meWater.setBounds(494, 728, 30, 30);
+			contentPane.add(meWater);
+			meWater.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					textArea.append("Medium Water      $1.50\r\n");
+					total = total + 1.50;
+					
+					textFieldTotal.setText(formatter.format(total));
+					textFieldTotal.repaint();
+				}
+			});
+			
+			JButton lgWater = new JButton("L");
+			lgWater.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			lgWater.setBounds(536, 728, 30, 30);
+			contentPane.add(lgWater);
+			lgWater.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					textArea.append("Large Water      $1.75\r\n");
+					total = total + 1.75;
+					
+					textFieldTotal.setText(formatter.format(total));
+					textFieldTotal.repaint();
+				}
+			});
+			
+			//ICEE Buttons
+			JLabel lblIcee = new JLabel("ICEE");
+			lblIcee.setBackground(Color.RED);
+			lblIcee.setBounds(618, 352, 110, 158);
+			contentPane.add(lblIcee);
+			lblIcee.setIcon(new ImageIcon("ICEE-cup.png"));
+			JButton smICEE = new JButton("S");
+			smICEE.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			smICEE.setBounds(616, 520, 30, 30);
+			contentPane.add(smICEE);
+			smICEE.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					textArea.append("Small ICEE      $3.00\r\n");
+					total = total + 3.00;
+					
+					textFieldTotal.setText(formatter.format(total));
+					textFieldTotal.repaint();
+				}
+			});
+			
+			JButton meICEE = new JButton("M");
+			meICEE.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			meICEE.setBounds(658, 520, 30, 30);
+			contentPane.add(meICEE);
+			meICEE.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					textArea.append("Medium ICEE      $3.50\r\n");
+					total = total + 3.50;
+					
+					textFieldTotal.setText(formatter.format(total));
+					textFieldTotal.repaint();
+				}
+			});
+			
+			JButton lgICEE = new JButton("L");
+			lgICEE.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			lgICEE.setBounds(700, 520, 30, 30);
+			contentPane.add(lgICEE);
+			lgICEE.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					textArea.append("Large ICEE      $4.00\r\n");
+					total = total + 4.00;
+					
+					textFieldTotal.setText(formatter.format(total));
+					textFieldTotal.repaint();
+				}
+			});
+			
+////////////////////////////////////////////
+/////////////SECTION LABELS/////////////////
+////////////////////////////////////////////			
+			
+			JLabel lblNowPlaying = new JLabel("Now Playing...");
+			lblNowPlaying.setForeground(Color.RED);
+			lblNowPlaying.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+			lblNowPlaying.setBounds(10, 19, 135, 30);
+			contentPane.add(lblNowPlaying);
+			
+			JLabel lblTicketOptions = new JLabel("Ticket Options:");
+			lblTicketOptions.setForeground(Color.RED);
+			lblTicketOptions.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+			lblTicketOptions.setBounds(438, 19, 155, 30);
+			contentPane.add(lblTicketOptions);
+			
+			JLabel lblSnacks = new JLabel("Snacks:");
+			lblSnacks.setForeground(Color.RED);
+			lblSnacks.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+			lblSnacks.setBounds(10, 317, 75, 30);
+			contentPane.add(lblSnacks);
+			
+			JLabel lblDrinks = new JLabel("Drinks:");
+			lblDrinks.setForeground(Color.RED);
+			lblDrinks.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+			lblDrinks.setBounds(438, 317, 75, 30);
+			contentPane.add(lblDrinks);
+			
+////////////////////////////////////////////
+/////////////MOVIE POSTERS//////////////////
+////////////////////////////////////////////			
+			
+			JLabel label_2 = new JLabel("");
+			label_2.setIcon(new ImageIcon("3BillboardsPoster.jpg"));
+			label_2.setBackground(Color.RED);
+			label_2.setBounds(10, 61, 110, 158);
+			contentPane.add(label_2);
+			
+			JLabel label_3 = new JLabel("");
+			label_3.setIcon(new ImageIcon("CallMeByYourNamePoster.jpg"));
+			label_3.setBackground(Color.RED);
+			label_3.setBounds(150, 61, 110, 158);
+			contentPane.add(label_3);
+			
+			JLabel label_4 = new JLabel("");
+			label_4.setIcon(new ImageIcon("PhantomThreadPoster.jpeg"));
+			label_4.setBackground(Color.RED);
+			label_4.setBounds(290, 61, 110, 158);
+			contentPane.add(label_4);
+			
+////////////////////////////////////////////
+/////////////MOVIE TIMES BUTTONS////////////
+////////////////////////////////////////////			
+			
+			//First Movie Times
+			//First Movie First TIme
+			JButton btnMovie1Time1 = new JButton("10:00am");
+			btnMovie1Time1.setBounds(6, 220, 117, 30);
+			contentPane.add(btnMovie1Time1);
+			
+			//First Movie Second Time
+			JButton btnMovie1Time2 = new JButton("12:20pm");
+			btnMovie1Time2.setBounds(6, 245, 117, 30);
+			contentPane.add(btnMovie1Time2);
+			
+			//First Movie Second Time
+			JButton btnMovie1Time3 = new JButton("5:45pm");
+			btnMovie1Time3.setBounds(6, 270, 117, 30);
+			contentPane.add(btnMovie1Time3);
+			
+			//First Movie Second Time
+			JButton btnMovie1Time4 = new JButton("8:10pm");
+			btnMovie1Time4.setBounds(6, 295, 117, 30);
+			contentPane.add(btnMovie1Time4);
+			
+			//Second Movie Times
+			//Second Movie First Time
+			JButton btnMovie2Time1 = new JButton("1:20pm");
+			btnMovie2Time1.setBounds(147, 220, 117, 30);
+			contentPane.add(btnMovie2Time1);
+			
+			//Second Movie Second Time
+			JButton btnMovie2Time2 = new JButton("3:00pm");
+			btnMovie2Time2.setBounds(147, 245, 117, 30);
+			contentPane.add(btnMovie2Time2);
+			
+			//Third Movie Times
+			//Third Movie First Time
+			JButton btnMovie3Time1 = new JButton("11:50am");
+			btnMovie3Time1.setBounds(287, 220, 117, 30);
+			contentPane.add(btnMovie3Time1);
+			
+			//Third Movie Second Time
+			JButton btnMovie3Time2 = new JButton("4:00pm");
+			btnMovie3Time2.setBounds(287, 245, 117, 30);
+			contentPane.add(btnMovie3Time2);
+			
+			//Third Movie Third Time
+			JButton btnMovie3Time3 = new JButton("7:30pm");
+			btnMovie3Time3.setBounds(287, 270, 117, 30);
+			contentPane.add(btnMovie3Time3);
+			
+////////////////////////////////////////////
+/////////////TICKET OPTIONS/////////////////
+////////////////////////////////////////////			
+			
+			//Senior Ticket Options
+			JLabel lblSeniorTicket = new JLabel("Senior Ticket (60+)");
+			lblSeniorTicket.setForeground(Color.BLACK);
+			lblSeniorTicket.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
+			lblSeniorTicket.setBounds(438, 61, 168, 30);
+			contentPane.add(lblSeniorTicket);
+			
+			JButton seniorTicketMinus = new JButton("-");
+			seniorTicketMinus.setBounds(616, 61, 30, 30);
+			contentPane.add(seniorTicketMinus);
+			seniorTicketMinus.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					if(seniorTicketTotal > 0){
+						seniorTicketTotal = seniorTicketTotal - 1;
+						amountSeniorTickets.setText(formatter.format(seniorTicketTotal));
+						amountSeniorTickets.repaint();
+					}
+				}
+			});
+			
+			JButton seniorTicketPlus = new JButton("+");
+			seniorTicketPlus.setBounds(700, 61, 30, 30);
+			contentPane.add(seniorTicketPlus);
+			seniorTicketPlus.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					seniorTicketTotal = seniorTicketTotal + 1;
+					amountSeniorTickets.setText(formatter.format(seniorTicketTotal));
+					amountSeniorTickets.repaint();
+				}
+			});
+			
+			amountSeniorTickets = new JTextField();
+			amountSeniorTickets.setHorizontalAlignment(SwingConstants.CENTER);
+			amountSeniorTickets.setText(formatter.format(seniorTicketTotal));
+			amountSeniorTickets.setEditable(false);
+			amountSeniorTickets.setColumns(10);
+			amountSeniorTickets.setBounds(653, 61, 40, 30);
+			contentPane.add(amountSeniorTickets);
+			
+			
+			//Adult Ticket Options
+			JLabel lblAdultTicket = new JLabel("Adult Ticket (15 - 60)");
+			lblAdultTicket.setForeground(Color.BLACK);
+			lblAdultTicket.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
+			lblAdultTicket.setBounds(438, 103, 188, 30);
+			contentPane.add(lblAdultTicket);
+			
+			JButton adultTicketMinus = new JButton("-");
+			adultTicketMinus.setBounds(637, 103, 30, 30);
+			contentPane.add(adultTicketMinus);
+			adultTicketMinus.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					if(adultTicketTotal > 0){
+						adultTicketTotal = adultTicketTotal - 1;
+						amountAdultTickets.setText(formatter.format(adultTicketTotal));
+						amountAdultTickets.repaint();
+					}
+				}
+			});
+			
+			JButton adultTicketPlus = new JButton("+");
+			adultTicketPlus.setBounds(721, 103, 30, 30);
+			contentPane.add(adultTicketPlus);
+			adultTicketPlus.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					adultTicketTotal = adultTicketTotal + 1;
+					amountAdultTickets.setText(formatter.format(adultTicketTotal));
+					amountAdultTickets.repaint();
+				}
+			});
+			
+			amountAdultTickets = new JTextField();
+			amountAdultTickets.setText(formatter.format(adultTicketTotal));
+			amountAdultTickets.setHorizontalAlignment(SwingConstants.CENTER);
+			amountAdultTickets.setEditable(false);
+			amountAdultTickets.setColumns(10);
+			amountAdultTickets.setBounds(674, 103, 40, 30);
+			contentPane.add(amountAdultTickets);
+			
+			//Child Ticket Options
+			JLabel lblChildTicketunder = new JLabel("Child Ticket (Under 15)");
+			lblChildTicketunder.setForeground(Color.BLACK);
+			lblChildTicketunder.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
+			lblChildTicketunder.setBounds(438, 145, 208, 30);
+			contentPane.add(lblChildTicketunder);
+			
+			JButton childTicketMinus = new JButton("-");
+			childTicketMinus.setBounds(647, 145, 30, 30);
+			contentPane.add(childTicketMinus);
+			childTicketMinus.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					if(childTicketTotal > 0){
+						childTicketTotal = childTicketTotal - 1;
+						amountChildTickets.setText(formatter.format(childTicketTotal));
+						amountChildTickets.repaint();
+					}
+				}
+			});
+			
+			JButton childTicketPlus = new JButton("+");
+			childTicketPlus.setBounds(731, 145, 30, 30);
+			contentPane.add(childTicketPlus);
+			childTicketPlus.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					childTicketTotal = childTicketTotal + 1;
+					amountChildTickets.setText(formatter.format(childTicketTotal));
+					amountChildTickets.repaint();
+				}
+			});
+			
+			amountChildTickets = new JTextField();
+			amountChildTickets.setText(formatter.format(childTicketTotal));
+			amountChildTickets.setHorizontalAlignment(SwingConstants.CENTER);
+			amountChildTickets.setEditable(false);
+			amountChildTickets.setColumns(10);
+			amountChildTickets.setBounds(684, 147, 40, 30);
+			contentPane.add(amountChildTickets);
+			
+			JButton btnSubmitTicketAmount = new JButton("Submit Ticket Amount");
+			btnSubmitTicketAmount.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+			btnSubmitTicketAmount.setBounds(438, 200, 188, 50);
+			contentPane.add(btnSubmitTicketAmount);
 			
 			// position frame in the middle of the screen
 			this.setLocationRelativeTo(null);
