@@ -33,7 +33,18 @@ public class MovieKiosk extends JFrame
 		private JTextField amountSeniorTickets;
 		private JTextField amountAdultTickets;
 		private JTextField amountChildTickets;
-
+		boolean m1t1 = false;
+		boolean m1t2 = false;
+		boolean m1t3 = false;
+		boolean m1t4 = false;
+		boolean m2t1 = false;
+		boolean m2t2 = false;
+		boolean m3t1 = false;
+		boolean m3t2 = false;
+		boolean m3t3 = false;
+		String selectedMovieName;
+		String selectedMovieTime;
+		
 		/**
 		 * Launch the application.
 		 */
@@ -46,8 +57,8 @@ public class MovieKiosk extends JFrame
 		/**
 		 * Create the frame.
 		 */
-		public MovieKiosk() 
-		{
+		public MovieKiosk(){
+
 			// Frame title
 			setTitle("--- Movie Kiosk ---");
 			
@@ -56,7 +67,7 @@ public class MovieKiosk extends JFrame
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
 			// size of the frame
-			setSize(975,800);
+			setSize(1050,800);
 			
 			// panel title
 			JPanel contentPane = new JPanel();
@@ -67,40 +78,40 @@ public class MovieKiosk extends JFrame
 			
 			//List of items that are being bought
 			JTextArea textArea = new JTextArea();
-			textArea.setBounds(763, 11, 168, 382);
+			textArea.setBounds(763, 11, 281, 382);
 			textArea.setEditable(false);
 
 			contentPane.add(textArea);
 			
 			//Field where total accumulating price is being displayed
 			JLabel lblTotal = new JLabel("Total");
-			lblTotal.setBounds(807, 405, 61, 16);
+			lblTotal.setBounds(901, 405, 100, 16);
 			contentPane.add(lblTotal);
 			JTextField textFieldTotal = new JTextField();
 			textFieldTotal.setEditable(false);
-			textFieldTotal.setBounds(807, 420, 124, 34);
+			textFieldTotal.setBounds(901, 420, 124, 34);
 			contentPane.add(textFieldTotal);
 			textFieldTotal.setColumns(10);
 			textFieldTotal.setText("0.00");
 			
 			//Cash Tendered Field
 			JLabel lblCashTendered = new JLabel("Cash Tendered");
-			lblCashTendered.setBounds(807, 474, 110, 16);
+			lblCashTendered.setBounds(901, 474, 110, 16);
 			contentPane.add(lblCashTendered);
 			JTextField textFieldCashTendered = new JTextField(); 
 			textFieldCashTendered.setEditable(true);
-			textFieldCashTendered.setBounds(807, 490, 124, 34);
+			textFieldCashTendered.setBounds(901, 490, 124, 34);
 			contentPane.add(textFieldCashTendered);
 			textFieldCashTendered.setColumns(10);
 			textFieldCashTendered.setText("0.00");
 			
 			//Change Due Field
 			JLabel lblChangeDue = new JLabel("Change Due");
-			lblChangeDue.setBounds(807, 544, 88, 16);
+			lblChangeDue.setBounds(901, 544, 88, 16);
 			contentPane.add(lblChangeDue);
 			JTextField textFieldChangeDue = new JTextField();
 			textFieldChangeDue.setEditable(false);
-			textFieldChangeDue.setBounds(807, 560, 124, 34);
+			textFieldChangeDue.setBounds(901, 560, 124, 34);
 			contentPane.add(textFieldChangeDue);
 			textFieldChangeDue.setColumns(10);
 			textFieldChangeDue.setText("0.00");			
@@ -118,7 +129,7 @@ public class MovieKiosk extends JFrame
 					textFieldChangeDue.setText(Double.toString(change));
 				}
 			});
-			btnNewButton_done.setBounds(700, 650, 250, 34);
+			btnNewButton_done.setBounds(794, 650, 250, 34);
 			contentPane.add(btnNewButton_done);
 			
 			// user will do the layout
@@ -415,75 +426,258 @@ public class MovieKiosk extends JFrame
 /////////////MOVIE POSTERS//////////////////
 ////////////////////////////////////////////			
 			
-			JLabel label_2 = new JLabel("");
-			label_2.setIcon(new ImageIcon("3BillboardsPoster.jpg"));
-			label_2.setBackground(Color.RED);
-			label_2.setBounds(10, 61, 110, 158);
-			contentPane.add(label_2);
+			JLabel labelMovieOne = new JLabel("Movie One");
+			labelMovieOne.setIcon(new ImageIcon("3BillboardsPoster.jpg"));
+			labelMovieOne.setBackground(Color.RED);
+			labelMovieOne.setBounds(10, 61, 110, 158);
+			contentPane.add(labelMovieOne);
+			String movieOneName = "Three Billboards";
 			
-			JLabel label_3 = new JLabel("");
-			label_3.setIcon(new ImageIcon("CallMeByYourNamePoster.jpg"));
-			label_3.setBackground(Color.RED);
-			label_3.setBounds(150, 61, 110, 158);
-			contentPane.add(label_3);
+			JLabel labelMovieTwo = new JLabel("Movie Two");
+			labelMovieTwo.setIcon(new ImageIcon("CallMeByYourNamePoster.jpg"));
+			labelMovieTwo.setBackground(Color.RED);
+			labelMovieTwo.setBounds(150, 61, 110, 158);
+			contentPane.add(labelMovieTwo);
+			String movieTwoName = "Call Me By Your Name";
 			
-			JLabel label_4 = new JLabel("");
-			label_4.setIcon(new ImageIcon("PhantomThreadPoster.jpeg"));
-			label_4.setBackground(Color.RED);
-			label_4.setBounds(290, 61, 110, 158);
-			contentPane.add(label_4);
+			JLabel labelMovieThree = new JLabel("Movie Three");
+			labelMovieThree.setIcon(new ImageIcon("PhantomThreadPoster.jpeg"));
+			labelMovieThree.setBackground(Color.RED);
+			labelMovieThree.setBounds(290, 61, 110, 158);
+			contentPane.add(labelMovieThree);
+			String movieThreeName = "Phantom Thread";
 			
 ////////////////////////////////////////////
 /////////////MOVIE TIMES BUTTONS////////////
 ////////////////////////////////////////////			
 			
 			//First Movie Times
-			//First Movie First TIme
-			JButton btnMovie1Time1 = new JButton("10:00am");
+			//First Movie First Time
+			String strMovie1Time1 = "10:00am";
+			JButton btnMovie1Time1 = new JButton(strMovie1Time1);
 			btnMovie1Time1.setBounds(6, 220, 117, 30);
 			contentPane.add(btnMovie1Time1);
+			btnMovie1Time1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					if(m1t2 || m1t3 || m1t4 || m2t1 || m2t2 || m3t1 || m3t2 || m3t3) {
+						m1t1 = true;
+						m1t2 = false;
+						m1t3 = false;
+						m1t4 = false;
+						m2t1 = false;
+						m2t2 = false;
+						m3t1 = false;
+						m3t2 = false;
+						m3t3 = false;
+					}
+					else {
+						m1t1 = true;
+					}
+				}
+			});
 			
 			//First Movie Second Time
-			JButton btnMovie1Time2 = new JButton("12:20pm");
+			String strMovie1Time2 = "12:20pm";
+			JButton btnMovie1Time2 = new JButton(strMovie1Time2);
 			btnMovie1Time2.setBounds(6, 245, 117, 30);
 			contentPane.add(btnMovie1Time2);
+			btnMovie1Time1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					if(m1t1 || m1t3 || m1t4 || m2t1 || m2t2 || m3t1 || m3t2 || m3t3) {
+						m1t1 = false;
+						m1t2 = true;
+						m1t3 = false;
+						m1t4 = false;
+						m2t1 = false;
+						m2t2 = false;
+						m3t1 = false;
+						m3t2 = false;
+						m3t3 = false;
+					}
+					else {
+						m1t2 = true;
+					}
+				}
+			});
 			
-			//First Movie Second Time
-			JButton btnMovie1Time3 = new JButton("5:45pm");
+			//First Movie Third Time
+			String strMovie1Time3 = "5:45pm";
+			JButton btnMovie1Time3 = new JButton(strMovie1Time3);
 			btnMovie1Time3.setBounds(6, 270, 117, 30);
 			contentPane.add(btnMovie1Time3);
+			btnMovie1Time1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					if(m1t2 || m1t1 || m1t4 || m2t1 || m2t2 || m3t1 || m3t2 || m3t3) {
+						m1t1 = false;
+						m1t2 = false;
+						m1t3 = true;
+						m1t4 = false;
+						m2t1 = false;
+						m2t2 = false;
+						m3t1 = false;
+						m3t2 = false;
+						m3t3 = false;
+					}
+					else {
+						m1t3 = true;
+					}
+				}
+			});
 			
-			//First Movie Second Time
-			JButton btnMovie1Time4 = new JButton("8:10pm");
+			//First Movie Fourth Time
+			String strMovie1Time4 = "8:10pm";
+			JButton btnMovie1Time4 = new JButton(strMovie1Time4);
 			btnMovie1Time4.setBounds(6, 295, 117, 30);
 			contentPane.add(btnMovie1Time4);
+			btnMovie1Time1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					if(m1t2 || m1t3 || m1t1 || m2t1 || m2t2 || m3t1 || m3t2 || m3t3) {
+						m1t1 = false;
+						m1t2 = false;
+						m1t3 = false;
+						m1t4 = true;
+						m2t1 = false;
+						m2t2 = false;
+						m3t1 = false;
+						m3t2 = false;
+						m3t3 = false;
+					}
+					else {
+						m1t4 = true;
+					}
+				}
+			});
 			
 			//Second Movie Times
 			//Second Movie First Time
-			JButton btnMovie2Time1 = new JButton("1:20pm");
+			String strMovie2Time1 = "1:20pm";
+			JButton btnMovie2Time1 = new JButton(strMovie2Time1);
 			btnMovie2Time1.setBounds(147, 220, 117, 30);
 			contentPane.add(btnMovie2Time1);
+			btnMovie1Time1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					if(m1t2 || m1t3 || m1t4 || m1t1 || m2t2 || m3t1 || m3t2 || m3t3) {
+						m1t1 = false;
+						m1t2 = false;
+						m1t3 = false;
+						m1t4 = false;
+						m2t1 = true;
+						m2t2 = false;
+						m3t1 = false;
+						m3t2 = false;
+						m3t3 = false;
+					}
+					else {
+						m2t1 = true;
+					}
+				}
+			});
 			
 			//Second Movie Second Time
-			JButton btnMovie2Time2 = new JButton("3:00pm");
+			String strMovie2Time2 = "3:00pm";
+			JButton btnMovie2Time2 = new JButton(strMovie2Time2);
 			btnMovie2Time2.setBounds(147, 245, 117, 30);
 			contentPane.add(btnMovie2Time2);
+			btnMovie1Time1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					if(m1t2 || m1t3 || m1t4 || m2t1 || m1t1 || m3t1 || m3t2 || m3t3) {
+						m1t1 = false;
+						m1t2 = false;
+						m1t3 = false;
+						m1t4 = false;
+						m2t1 = false;
+						m2t2 = true;
+						m3t1 = false;
+						m3t2 = false;
+						m3t3 = false;
+					}
+					else {
+						m2t2 = true;
+					}
+				}
+			});
 			
 			//Third Movie Times
 			//Third Movie First Time
-			JButton btnMovie3Time1 = new JButton("11:50am");
+			String strMovie3Time1 = "11:50am";
+			JButton btnMovie3Time1 = new JButton(strMovie3Time1);
 			btnMovie3Time1.setBounds(287, 220, 117, 30);
 			contentPane.add(btnMovie3Time1);
+			btnMovie1Time1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					if(m1t2 || m1t3 || m1t4 || m2t1 || m2t2 || m1t1 || m3t2 || m3t3) {
+						m1t1 = false;
+						m1t2 = false;
+						m1t3 = false;
+						m1t4 = false;
+						m2t1 = false;
+						m2t2 = false;
+						m3t1 = true;
+						m3t2 = false;
+						m3t3 = false;
+					}
+					else {
+						m3t1 = true;
+					}
+				}
+			});
 			
 			//Third Movie Second Time
-			JButton btnMovie3Time2 = new JButton("4:00pm");
+			String strMovie3Time2 = "4:00pm";
+			JButton btnMovie3Time2 = new JButton(strMovie3Time2);
 			btnMovie3Time2.setBounds(287, 245, 117, 30);
 			contentPane.add(btnMovie3Time2);
+			btnMovie1Time1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					if(m1t2 || m1t3 || m1t4 || m2t1 || m2t2 || m3t1 || m1t1 || m3t3) {
+						m1t1 = false;
+						m1t2 = false;
+						m1t3 = false;
+						m1t4 = false;
+						m2t1 = false;
+						m2t2 = false;
+						m3t1 = false;
+						m3t2 = true;
+						m3t3 = false;
+					}
+					else {
+						m3t2 = true;
+					}
+				}
+			});
 			
 			//Third Movie Third Time
-			JButton btnMovie3Time3 = new JButton("7:30pm");
+			String strMovie3Time3 = "7:30pm";
+			JButton btnMovie3Time3 = new JButton(strMovie3Time3);
 			btnMovie3Time3.setBounds(287, 270, 117, 30);
 			contentPane.add(btnMovie3Time3);
+			btnMovie1Time1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					if(m1t2 || m1t3 || m1t4 || m2t1 || m2t2 || m3t1 || m3t2 || m1t1) {
+						m1t1 = false;
+						m1t2 = false;
+						m1t3 = false;
+						m1t4 = false;
+						m2t1 = false;
+						m2t2 = false;
+						m3t1 = false;
+						m3t2 = false;
+						m3t3 = true;
+					}
+					else {
+						m3t3 = true;
+					}
+				}
+			});
 			
 ////////////////////////////////////////////
 /////////////TICKET OPTIONS/////////////////
@@ -613,10 +807,79 @@ public class MovieKiosk extends JFrame
 			amountChildTickets.setBounds(684, 147, 40, 30);
 			contentPane.add(amountChildTickets);
 			
+			//Submit Ticket Amount Button
 			JButton btnSubmitTicketAmount = new JButton("Submit Ticket Amount");
 			btnSubmitTicketAmount.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 			btnSubmitTicketAmount.setBounds(438, 200, 188, 50);
 			contentPane.add(btnSubmitTicketAmount);
+			btnSubmitTicketAmount.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e){
+					
+					if(m1t1) {
+						selectedMovieName = movieOneName;
+						selectedMovieTime = strMovie1Time1;
+					}
+					if(m1t2) {
+						selectedMovieName = movieOneName;
+						selectedMovieTime = strMovie1Time2;
+					}
+					if(m1t3) {
+						selectedMovieName = movieOneName;
+						selectedMovieTime = strMovie1Time3;
+					}
+					if(m1t4) {
+						selectedMovieName = movieOneName;
+						selectedMovieTime = strMovie1Time4;
+					}
+					if(m2t1) {
+						selectedMovieName = movieTwoName;
+						selectedMovieTime = strMovie2Time1;
+					}
+					if(m2t2) {
+						selectedMovieName = movieTwoName;
+						selectedMovieTime = strMovie2Time2;
+					}
+					if(m3t1) {
+						selectedMovieName = movieThreeName;
+						selectedMovieTime = strMovie3Time1;
+					}
+					if(m3t2) {
+						selectedMovieName = movieThreeName;
+						selectedMovieTime = strMovie3Time2;
+					}
+					if(m3t3) {
+						selectedMovieName = movieThreeName;
+						selectedMovieTime = strMovie3Time3;
+					}
+					
+					if(seniorTicketTotal > 0) {
+						double seniorTotalPrice = (seniorTicketTotal * 9.00);
+						int seniorIntTicketTotal = (int)(seniorTicketTotal);
+						textArea.append(seniorIntTicketTotal + "x Senior Tickets to " + selectedMovieName + " " + selectedMovieTime + "     $" + seniorTotalPrice + "\r\n");
+						total = total + seniorTotalPrice;
+						textFieldTotal.setText(formatter.format(total));
+						textFieldTotal.repaint();
+					}
+					
+					if(adultTicketTotal > 0) {
+						double adultTotalPrice = (adultTicketTotal * 11.00);
+						int adultIntTicketTotal = (int)(adultTicketTotal);
+						textArea.append(adultIntTicketTotal + "x Adult Tickets to " + selectedMovieName + " " + selectedMovieTime + "     $" + adultTotalPrice + "\r\n");
+						total = total + adultTotalPrice;
+						textFieldTotal.setText(formatter.format(total));
+						textFieldTotal.repaint();
+					}
+					
+					if(childTicketTotal > 0) {
+						double childTotalPrice = (childTicketTotal * 7.00);
+						int childIntTicketTotal = (int)(childTicketTotal);
+						textArea.append(childIntTicketTotal + "x Child Tickets to " + selectedMovieName + " " + selectedMovieTime + "     $" + childTotalPrice + "\r\n");
+						total = total + childTotalPrice;
+						textFieldTotal.setText(formatter.format(total));
+						textFieldTotal.repaint();
+					}
+				}	
+			});
 			
 			// position frame in the middle of the screen
 			this.setLocationRelativeTo(null);
