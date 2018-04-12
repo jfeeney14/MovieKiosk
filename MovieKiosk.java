@@ -44,6 +44,18 @@ public class MovieKiosk extends JFrame
 		boolean m3t3 = false;
 		String selectedMovieName;
 		String selectedMovieTime;
+		String movieOneName = "";
+		String movieTwoName = "";
+		String movieThreeName = "";
+		String strMovie1Time1 = "";
+		String strMovie1Time2 = "";
+		String strMovie1Time3 = "";
+		String strMovie1Time4 = "";
+		String strMovie2Time1 = "";
+		String strMovie2Time2 = "";
+		String strMovie3Time1 = "";
+		String strMovie3Time2 = "";
+		String strMovie3Time3 = "";
 		
 		/**
 		 * Launch the application.
@@ -431,21 +443,21 @@ public class MovieKiosk extends JFrame
 			labelMovieOne.setBackground(Color.RED);
 			labelMovieOne.setBounds(10, 61, 110, 158);
 			contentPane.add(labelMovieOne);
-			String movieOneName = "Three Billboards";
+			movieOneName = "Three Billboards";
 			
 			JLabel labelMovieTwo = new JLabel("Movie Two");
 			labelMovieTwo.setIcon(new ImageIcon("CallMeByYourNamePoster.jpg"));
 			labelMovieTwo.setBackground(Color.RED);
 			labelMovieTwo.setBounds(150, 61, 110, 158);
 			contentPane.add(labelMovieTwo);
-			String movieTwoName = "Call Me By Your Name";
+			movieTwoName = "Call Me By Your Name";
 			
 			JLabel labelMovieThree = new JLabel("Movie Three");
 			labelMovieThree.setIcon(new ImageIcon("PhantomThreadPoster.jpeg"));
 			labelMovieThree.setBackground(Color.RED);
 			labelMovieThree.setBounds(290, 61, 110, 158);
 			contentPane.add(labelMovieThree);
-			String movieThreeName = "Phantom Thread";
+			movieThreeName = "Phantom Thread";
 			
 ////////////////////////////////////////////
 /////////////MOVIE TIMES BUTTONS////////////
@@ -453,7 +465,7 @@ public class MovieKiosk extends JFrame
 			
 			//First Movie Times
 			//First Movie First Time
-			String strMovie1Time1 = "10:00am";
+			strMovie1Time1 = "10:00am";
 			JButton btnMovie1Time1 = new JButton(strMovie1Time1);
 			btnMovie1Time1.setBounds(6, 220, 117, 30);
 			contentPane.add(btnMovie1Time1);
@@ -478,7 +490,7 @@ public class MovieKiosk extends JFrame
 			});
 			
 			//First Movie Second Time
-			String strMovie1Time2 = "12:20pm";
+			strMovie1Time2 = "12:20pm";
 			JButton btnMovie1Time2 = new JButton(strMovie1Time2);
 			btnMovie1Time2.setBounds(6, 245, 117, 30);
 			contentPane.add(btnMovie1Time2);
@@ -503,7 +515,7 @@ public class MovieKiosk extends JFrame
 			});
 			
 			//First Movie Third Time
-			String strMovie1Time3 = "5:45pm";
+			strMovie1Time3 = "5:45pm";
 			JButton btnMovie1Time3 = new JButton(strMovie1Time3);
 			btnMovie1Time3.setBounds(6, 270, 117, 30);
 			contentPane.add(btnMovie1Time3);
@@ -528,7 +540,7 @@ public class MovieKiosk extends JFrame
 			});
 			
 			//First Movie Fourth Time
-			String strMovie1Time4 = "8:10pm";
+			strMovie1Time4 = "8:10pm";
 			JButton btnMovie1Time4 = new JButton(strMovie1Time4);
 			btnMovie1Time4.setBounds(6, 295, 117, 30);
 			contentPane.add(btnMovie1Time4);
@@ -554,7 +566,7 @@ public class MovieKiosk extends JFrame
 			
 			//Second Movie Times
 			//Second Movie First Time
-			String strMovie2Time1 = "1:20pm";
+			strMovie2Time1 = "1:20pm";
 			JButton btnMovie2Time1 = new JButton(strMovie2Time1);
 			btnMovie2Time1.setBounds(147, 220, 117, 30);
 			contentPane.add(btnMovie2Time1);
@@ -579,7 +591,7 @@ public class MovieKiosk extends JFrame
 			});
 			
 			//Second Movie Second Time
-			String strMovie2Time2 = "3:00pm";
+			strMovie2Time2 = "3:00pm";
 			JButton btnMovie2Time2 = new JButton(strMovie2Time2);
 			btnMovie2Time2.setBounds(147, 245, 117, 30);
 			contentPane.add(btnMovie2Time2);
@@ -605,7 +617,7 @@ public class MovieKiosk extends JFrame
 			
 			//Third Movie Times
 			//Third Movie First Time
-			String strMovie3Time1 = "11:50am";
+			strMovie3Time1 = "11:50am";
 			JButton btnMovie3Time1 = new JButton(strMovie3Time1);
 			btnMovie3Time1.setBounds(287, 220, 117, 30);
 			contentPane.add(btnMovie3Time1);
@@ -630,7 +642,7 @@ public class MovieKiosk extends JFrame
 			});
 			
 			//Third Movie Second Time
-			String strMovie3Time2 = "4:00pm";
+			strMovie3Time2 = "4:00pm";
 			JButton btnMovie3Time2 = new JButton(strMovie3Time2);
 			btnMovie3Time2.setBounds(287, 245, 117, 30);
 			contentPane.add(btnMovie3Time2);
@@ -655,7 +667,7 @@ public class MovieKiosk extends JFrame
 			});
 			
 			//Third Movie Third Time
-			String strMovie3Time3 = "7:30pm";
+			strMovie3Time3 = "7:30pm";
 			JButton btnMovie3Time3 = new JButton(strMovie3Time3);
 			btnMovie3Time3.setBounds(287, 270, 117, 30);
 			contentPane.add(btnMovie3Time3);
