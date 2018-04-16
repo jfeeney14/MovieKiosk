@@ -472,7 +472,6 @@ public class MovieKiosk extends JFrame
 			btnMovie1Time1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					if(m1t2 || m1t3 || m1t4 || m2t1 || m2t2 || m3t1 || m3t2 || m3t3) {
 						m1t1 = true;
 						m1t2 = false;
 						m1t3 = false;
@@ -482,10 +481,6 @@ public class MovieKiosk extends JFrame
 						m3t1 = false;
 						m3t2 = false;
 						m3t3 = false;
-					}
-					else {
-						m1t1 = true;
-					}
 				}
 			});
 			
@@ -494,10 +489,9 @@ public class MovieKiosk extends JFrame
 			JButton btnMovie1Time2 = new JButton(strMovie1Time2);
 			btnMovie1Time2.setBounds(6, 245, 117, 30);
 			contentPane.add(btnMovie1Time2);
-			btnMovie1Time1.addActionListener(new ActionListener() {
+			btnMovie1Time2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					if(m1t1 || m1t3 || m1t4 || m2t1 || m2t2 || m3t1 || m3t2 || m3t3) {
 						m1t1 = false;
 						m1t2 = true;
 						m1t3 = false;
@@ -507,10 +501,6 @@ public class MovieKiosk extends JFrame
 						m3t1 = false;
 						m3t2 = false;
 						m3t3 = false;
-					}
-					else {
-						m1t2 = true;
-					}
 				}
 			});
 			
@@ -519,10 +509,9 @@ public class MovieKiosk extends JFrame
 			JButton btnMovie1Time3 = new JButton(strMovie1Time3);
 			btnMovie1Time3.setBounds(6, 270, 117, 30);
 			contentPane.add(btnMovie1Time3);
-			btnMovie1Time1.addActionListener(new ActionListener() {
+			btnMovie1Time3.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					if(m1t2 || m1t1 || m1t4 || m2t1 || m2t2 || m3t1 || m3t2 || m3t3) {
 						m1t1 = false;
 						m1t2 = false;
 						m1t3 = true;
@@ -532,10 +521,6 @@ public class MovieKiosk extends JFrame
 						m3t1 = false;
 						m3t2 = false;
 						m3t3 = false;
-					}
-					else {
-						m1t3 = true;
-					}
 				}
 			});
 			
@@ -544,10 +529,9 @@ public class MovieKiosk extends JFrame
 			JButton btnMovie1Time4 = new JButton(strMovie1Time4);
 			btnMovie1Time4.setBounds(6, 295, 117, 30);
 			contentPane.add(btnMovie1Time4);
-			btnMovie1Time1.addActionListener(new ActionListener() {
+			btnMovie1Time4.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					if(m1t2 || m1t3 || m1t1 || m2t1 || m2t2 || m3t1 || m3t2 || m3t3) {
 						m1t1 = false;
 						m1t2 = false;
 						m1t3 = false;
@@ -557,10 +541,6 @@ public class MovieKiosk extends JFrame
 						m3t1 = false;
 						m3t2 = false;
 						m3t3 = false;
-					}
-					else {
-						m1t4 = true;
-					}
 				}
 			});
 			
@@ -570,10 +550,9 @@ public class MovieKiosk extends JFrame
 			JButton btnMovie2Time1 = new JButton(strMovie2Time1);
 			btnMovie2Time1.setBounds(147, 220, 117, 30);
 			contentPane.add(btnMovie2Time1);
-			btnMovie1Time1.addActionListener(new ActionListener() {
+			btnMovie2Time1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					if(m1t2 || m1t3 || m1t4 || m1t1 || m2t2 || m3t1 || m3t2 || m3t3) {
 						m1t1 = false;
 						m1t2 = false;
 						m1t3 = false;
@@ -583,10 +562,6 @@ public class MovieKiosk extends JFrame
 						m3t1 = false;
 						m3t2 = false;
 						m3t3 = false;
-					}
-					else {
-						m2t1 = true;
-					}
 				}
 			});
 			
@@ -595,10 +570,9 @@ public class MovieKiosk extends JFrame
 			JButton btnMovie2Time2 = new JButton(strMovie2Time2);
 			btnMovie2Time2.setBounds(147, 245, 117, 30);
 			contentPane.add(btnMovie2Time2);
-			btnMovie1Time1.addActionListener(new ActionListener() {
+			btnMovie2Time2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					if(m1t2 || m1t3 || m1t4 || m2t1 || m1t1 || m3t1 || m3t2 || m3t3) {
 						m1t1 = false;
 						m1t2 = false;
 						m1t3 = false;
@@ -608,10 +582,6 @@ public class MovieKiosk extends JFrame
 						m3t1 = false;
 						m3t2 = false;
 						m3t3 = false;
-					}
-					else {
-						m2t2 = true;
-					}
 				}
 			});
 			
@@ -621,10 +591,9 @@ public class MovieKiosk extends JFrame
 			JButton btnMovie3Time1 = new JButton(strMovie3Time1);
 			btnMovie3Time1.setBounds(287, 220, 117, 30);
 			contentPane.add(btnMovie3Time1);
-			btnMovie1Time1.addActionListener(new ActionListener() {
+			btnMovie3Time1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					if(m1t2 || m1t3 || m1t4 || m2t1 || m2t2 || m1t1 || m3t2 || m3t3) {
 						m1t1 = false;
 						m1t2 = false;
 						m1t3 = false;
@@ -634,10 +603,6 @@ public class MovieKiosk extends JFrame
 						m3t1 = true;
 						m3t2 = false;
 						m3t3 = false;
-					}
-					else {
-						m3t1 = true;
-					}
 				}
 			});
 			
@@ -646,10 +611,9 @@ public class MovieKiosk extends JFrame
 			JButton btnMovie3Time2 = new JButton(strMovie3Time2);
 			btnMovie3Time2.setBounds(287, 245, 117, 30);
 			contentPane.add(btnMovie3Time2);
-			btnMovie1Time1.addActionListener(new ActionListener() {
+			btnMovie3Time2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					if(m1t2 || m1t3 || m1t4 || m2t1 || m2t2 || m3t1 || m1t1 || m3t3) {
 						m1t1 = false;
 						m1t2 = false;
 						m1t3 = false;
@@ -659,10 +623,6 @@ public class MovieKiosk extends JFrame
 						m3t1 = false;
 						m3t2 = true;
 						m3t3 = false;
-					}
-					else {
-						m3t2 = true;
-					}
 				}
 			});
 			
@@ -671,10 +631,9 @@ public class MovieKiosk extends JFrame
 			JButton btnMovie3Time3 = new JButton(strMovie3Time3);
 			btnMovie3Time3.setBounds(287, 270, 117, 30);
 			contentPane.add(btnMovie3Time3);
-			btnMovie1Time1.addActionListener(new ActionListener() {
+			btnMovie3Time3.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					if(m1t2 || m1t3 || m1t4 || m2t1 || m2t2 || m3t1 || m3t2 || m1t1) {
 						m1t1 = false;
 						m1t2 = false;
 						m1t3 = false;
@@ -684,10 +643,6 @@ public class MovieKiosk extends JFrame
 						m3t1 = false;
 						m3t2 = false;
 						m3t3 = true;
-					}
-					else {
-						m3t3 = true;
-					}
 				}
 			});
 			
