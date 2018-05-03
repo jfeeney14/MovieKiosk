@@ -11,6 +11,7 @@ import java.text.NumberFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.Color;
@@ -135,10 +136,41 @@ public class MovieKiosk extends JFrame
 			{
 				public void actionPerformed(ActionEvent e)
 				{
+					
 					String text = textFieldCashTendered.getText();
 					double intCT = Integer.parseInt(text);
 					double change = intCT - total;
 					textFieldChangeDue.setText(Double.toString(change));
+					
+					Thread t = new Thread(new Runnable()
+					{
+						public void run()
+						{
+							socketUtils su = new socketUtils();
+							
+							if (su.socketConnect() == true)
+							{				
+								su.sendMessage("Transaction total:"+ total +"");
+								String recvMsgStr = su.recvMessage();
+								su.sendMessage("QUIT>");
+								
+								su.closeSocket();
+								
+								JOptionPane.showMessageDialog(null, 
+				                        "Message : " + recvMsgStr,
+				                        "Client",
+				                        JOptionPane.WARNING_MESSAGE);
+							}
+							else
+							{
+								JOptionPane.showMessageDialog(null, 
+				                        "ERROR:Connection To Socket Server is Down!",
+				                        "Client",
+				                        JOptionPane.WARNING_MESSAGE);
+							}		
+						}
+					});
+		            t.start();
 				}
 			});
 			btnNewButton_done.setBounds(794, 650, 250, 34);
