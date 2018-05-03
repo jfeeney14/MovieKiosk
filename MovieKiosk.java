@@ -141,29 +141,6 @@ public class MovieKiosk extends JFrame
 					double intCT = Integer.parseInt(text);
 					double change = intCT - total;
 					textFieldChangeDue.setText(Double.toString(change));
-					textFieldCashTendered.setText("0.00");
-					textFieldTotal.setText("0.00");
-					total = 0.0;
-					change = 0.0;
-					seniorTicketTotal = 0.0;
-					adultTicketTotal = 0.0;
-					childTicketTotal = 0.0;
-					amountChildTickets.setText("0.00");
-					amountAdultTickets.setText("0.00");
-					amountSeniorTickets.setText("0.00");
-					m1t1 = false;
-					m1t2 = false;
-					m1t3 = false;
-					m1t4 = false;
-					m2t1 = false;
-					m2t2 = false;
-					m3t1 = false;
-					m3t2 = false;
-					m3t3 = false;
-					selectedMovieName = "";
-					selectedMovieTime = "";
-					textArea.setText(null);
-					
 					
 					Thread t = new Thread(new Runnable()
 					{
@@ -193,7 +170,31 @@ public class MovieKiosk extends JFrame
 							}		
 						}
 					});
-		            t.start();
+		            		t.start();
+		            
+		            		textFieldCashTendered.setText("0.00");
+					textFieldTotal.setText("0.00");
+					total = 0.0;
+					change = 0.0;
+					seniorTicketTotal = 0.0;
+					adultTicketTotal = 0.0;
+					childTicketTotal = 0.0;
+					amountChildTickets.setText("0.00");
+					amountAdultTickets.setText("0.00");
+					amountSeniorTickets.setText("0.00");
+					m1t1 = false;
+					m1t2 = false;
+					m1t3 = false;
+					m1t4 = false;
+					m2t1 = false;
+					m2t2 = false;
+					m3t1 = false;
+					m3t2 = false;
+					m3t3 = false;
+					selectedMovieName = "";
+					selectedMovieTime = "";
+					textArea.setText(null);
+					
 				}
 			});
 			btnNewButton_done.setBounds(794, 650, 250, 34);
