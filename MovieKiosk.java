@@ -80,7 +80,7 @@ public class MovieKiosk extends JFrame
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
 			// size of the frame
-			setSize(1050,800);
+			setSize(1150,800);
 			
 			// panel title
 			JPanel contentPane = new JPanel();
@@ -91,40 +91,40 @@ public class MovieKiosk extends JFrame
 			
 			//List of items that are being bought
 			JTextArea textArea = new JTextArea();
-			textArea.setBounds(763, 11, 281, 382);
+			textArea.setBounds(848, 11, 281, 382);
 			textArea.setEditable(false);
 
 			contentPane.add(textArea);
 			
 			//Field where total accumulating price is being displayed
 			JLabel lblTotal = new JLabel("Total");
-			lblTotal.setBounds(901, 405, 100, 16);
+			lblTotal.setBounds(986, 405, 100, 16);
 			contentPane.add(lblTotal);
 			JTextField textFieldTotal = new JTextField();
 			textFieldTotal.setEditable(false);
-			textFieldTotal.setBounds(901, 420, 124, 34);
+			textFieldTotal.setBounds(986, 420, 124, 34);
 			contentPane.add(textFieldTotal);
 			textFieldTotal.setColumns(10);
 			textFieldTotal.setText("0.00");
 			
 			//Cash Tendered Field
 			JLabel lblCashTendered = new JLabel("Cash Tendered");
-			lblCashTendered.setBounds(901, 474, 110, 16);
+			lblCashTendered.setBounds(986, 474, 110, 16);
 			contentPane.add(lblCashTendered);
 			JTextField textFieldCashTendered = new JTextField(); 
 			textFieldCashTendered.setEditable(true);
-			textFieldCashTendered.setBounds(901, 490, 124, 34);
+			textFieldCashTendered.setBounds(986, 490, 124, 34);
 			contentPane.add(textFieldCashTendered);
 			textFieldCashTendered.setColumns(10);
 			textFieldCashTendered.setText("0.00");
 			
 			//Change Due Field
 			JLabel lblChangeDue = new JLabel("Change Due");
-			lblChangeDue.setBounds(901, 544, 88, 16);
+			lblChangeDue.setBounds(986, 544, 88, 16);
 			contentPane.add(lblChangeDue);
 			JTextField textFieldChangeDue = new JTextField();
 			textFieldChangeDue.setEditable(false);
-			textFieldChangeDue.setBounds(901, 560, 124, 34);
+			textFieldChangeDue.setBounds(986, 560, 124, 34);
 			contentPane.add(textFieldChangeDue);
 			textFieldChangeDue.setColumns(10);
 			textFieldChangeDue.setText("0.00");	
@@ -170,9 +170,9 @@ public class MovieKiosk extends JFrame
 							}		
 						}
 					});
-		            		t.start();
+		            t.start();
 		            
-		            		textFieldCashTendered.setText("0.00");
+		            textFieldCashTendered.setText("0.00");
 					textFieldTotal.setText("0.00");
 					total = 0.0;
 					change = 0.0;
@@ -197,7 +197,7 @@ public class MovieKiosk extends JFrame
 					
 				}
 			});
-			btnNewButton_done.setBounds(794, 650, 250, 34);
+			btnNewButton_done.setBounds(879, 650, 250, 34);
 			contentPane.add(btnNewButton_done);
 			
 			// user will do the layout
@@ -312,12 +312,12 @@ public class MovieKiosk extends JFrame
 			//Soda Buttons
 			JLabel lblSoda = new JLabel("Soda");
 			lblSoda.setBackground(Color.RED);
-			lblSoda.setBounds(452, 350, 110, 158);
+			lblSoda.setBounds(449, 420, 110, 158);
 			contentPane.add(lblSoda);
 			lblSoda.setIcon(new ImageIcon("SodaCup.jpeg"));
 			JButton smSoda = new JButton("S");
 			smSoda.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			smSoda.setBounds(452, 520, 30, 30);
+			smSoda.setBounds(449, 590, 30, 30);
 			contentPane.add(smSoda);
 			smSoda.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
@@ -332,7 +332,7 @@ public class MovieKiosk extends JFrame
 			
 			JButton meSoda = new JButton("M");
 			meSoda.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			meSoda.setBounds(494, 520, 30, 30);
+			meSoda.setBounds(491, 590, 30, 30);
 			contentPane.add(meSoda);
 			meSoda.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
@@ -347,7 +347,7 @@ public class MovieKiosk extends JFrame
 			
 			JButton lgSoda = new JButton("L");
 			lgSoda.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			lgSoda.setBounds(536, 520, 30, 30);
+			lgSoda.setBounds(533, 590, 30, 30);
 			contentPane.add(lgSoda);
 			lgSoda.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
@@ -363,12 +363,12 @@ public class MovieKiosk extends JFrame
 			//Water Buttons
 			JLabel lblWater = new JLabel("Water");
 			lblWater.setBackground(Color.RED);
-			lblWater.setBounds(453, 560, 110, 158);
+			lblWater.setBounds(617, 422, 110, 158);
 			contentPane.add(lblWater);
 			lblWater.setIcon(new ImageIcon("WaterBottle.jpeg"));
 			JButton smWater = new JButton("S");
 			smWater.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			smWater.setBounds(452, 728, 30, 30);
+			smWater.setBounds(616, 590, 30, 30);
 			contentPane.add(smWater);
 			smWater.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
@@ -383,7 +383,7 @@ public class MovieKiosk extends JFrame
 			
 			JButton meWater = new JButton("M");
 			meWater.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			meWater.setBounds(494, 728, 30, 30);
+			meWater.setBounds(658, 590, 30, 30);
 			contentPane.add(meWater);
 			meWater.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
@@ -398,7 +398,7 @@ public class MovieKiosk extends JFrame
 			
 			JButton lgWater = new JButton("L");
 			lgWater.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			lgWater.setBounds(536, 728, 30, 30);
+			lgWater.setBounds(700, 590, 30, 30);
 			contentPane.add(lgWater);
 			lgWater.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
@@ -414,12 +414,12 @@ public class MovieKiosk extends JFrame
 			//ICEE Buttons
 			JLabel lblIcee = new JLabel("ICEE");
 			lblIcee.setBackground(Color.RED);
-			lblIcee.setBounds(618, 352, 110, 158);
+			lblIcee.setBounds(785, 422, 110, 158);
 			contentPane.add(lblIcee);
 			lblIcee.setIcon(new ImageIcon("ICEE-cup.png"));
 			JButton smICEE = new JButton("S");
 			smICEE.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			smICEE.setBounds(616, 520, 30, 30);
+			smICEE.setBounds(783, 590, 30, 30);
 			contentPane.add(smICEE);
 			smICEE.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
@@ -434,7 +434,7 @@ public class MovieKiosk extends JFrame
 			
 			JButton meICEE = new JButton("M");
 			meICEE.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			meICEE.setBounds(658, 520, 30, 30);
+			meICEE.setBounds(825, 590, 30, 30);
 			contentPane.add(meICEE);
 			meICEE.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
@@ -449,7 +449,7 @@ public class MovieKiosk extends JFrame
 			
 			JButton lgICEE = new JButton("L");
 			lgICEE.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			lgICEE.setBounds(700, 520, 30, 30);
+			lgICEE.setBounds(867, 590, 30, 30);
 			contentPane.add(lgICEE);
 			lgICEE.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
@@ -487,7 +487,7 @@ public class MovieKiosk extends JFrame
 			JLabel lblDrinks = new JLabel("Drinks:");
 			lblDrinks.setForeground(Color.RED);
 			lblDrinks.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-			lblDrinks.setBounds(438, 317, 75, 30);
+			lblDrinks.setBounds(449, 374, 75, 30);
 			contentPane.add(lblDrinks);
 			
 ////////////////////////////////////////////
