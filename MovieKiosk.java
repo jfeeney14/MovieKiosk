@@ -143,6 +143,13 @@ public class MovieKiosk extends JFrame
 					String text = textFieldCashTendered.getText();
 					double intCT = Integer.parseInt(text);
 					double change = intCT - total;
+					
+					if(change < 0)
+					{ JOptionPane.showMessageDialog(null,"Insufficient Cash Tendered"); 
+					
+					}
+					
+					else {
 					textFieldChangeDue.setText(Double.toString(change));
 					
 					Thread t = new Thread(new Runnable()
@@ -174,6 +181,7 @@ public class MovieKiosk extends JFrame
 						}
 					});
 		            t.start();
+					}
 		            
 		            textFieldCashTendered.setText("0.00");
 					textFieldTotal.setText("0.00");
