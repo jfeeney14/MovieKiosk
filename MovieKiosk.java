@@ -877,34 +877,39 @@ public class MovieKiosk extends JFrame
 						selectedMovieName = movieThreeName;
 						selectedMovieTime = strMovie3Time3;
 					}
+					
 					if(selectedMovieTime == ""){
 						JOptionPane.showMessageDialog(null,"You Must Select a Movie!");
 					}
-					if(seniorTicketTotal > 0) {
-						double seniorTotalPrice = (seniorTicketTotal * 9.00);
-						int seniorIntTicketTotal = (int)(seniorTicketTotal);
-						textArea.append(seniorIntTicketTotal + "x Senior Tickets to " + selectedMovieName + " " + selectedMovieTime + "     $" + seniorTotalPrice + "\r\n");
-						total = total + seniorTotalPrice;
-						textFieldTotal.setText(formatter.format(total));
-						textFieldTotal.repaint();
-					}
 					
-					if(adultTicketTotal > 0) {
-						double adultTotalPrice = (adultTicketTotal * 11.00);
-						int adultIntTicketTotal = (int)(adultTicketTotal);
-						textArea.append(adultIntTicketTotal + "x Adult Tickets to " + selectedMovieName + " " + selectedMovieTime + "     $" + adultTotalPrice + "\r\n");
-						total = total + adultTotalPrice;
-						textFieldTotal.setText(formatter.format(total));
-						textFieldTotal.repaint();
-					}
+						else{
 					
-					if(childTicketTotal > 0) {
-						double childTotalPrice = (childTicketTotal * 7.00);
-						int childIntTicketTotal = (int)(childTicketTotal);
-						textArea.append(childIntTicketTotal + "x Child Tickets to " + selectedMovieName + " " + selectedMovieTime + "     $" + childTotalPrice + "\r\n");
-						total = total + childTotalPrice;
-						textFieldTotal.setText(formatter.format(total));
-						textFieldTotal.repaint();
+							if(seniorTicketTotal > 0) {
+								double seniorTotalPrice = (seniorTicketTotal * 9.00);
+								int seniorIntTicketTotal = (int)(seniorTicketTotal);
+								textArea.append(seniorIntTicketTotal + "x Senior Tickets to " + selectedMovieName + " " + selectedMovieTime + "     $" + seniorTotalPrice + "\r\n");
+								total = total + seniorTotalPrice;
+								textFieldTotal.setText(formatter.format(total));
+								textFieldTotal.repaint();
+							}
+					
+							if(adultTicketTotal > 0) {
+								double adultTotalPrice = (adultTicketTotal * 11.00);
+								int adultIntTicketTotal = (int)(adultTicketTotal);
+								textArea.append(adultIntTicketTotal + "x Adult Tickets to " + selectedMovieName + " " + selectedMovieTime + "     $" + adultTotalPrice + "\r\n");
+								total = total + adultTotalPrice;
+								textFieldTotal.setText(formatter.format(total));
+								textFieldTotal.repaint();
+							}
+					
+							if(childTicketTotal > 0) {
+								double childTotalPrice = (childTicketTotal * 7.00);
+								int childIntTicketTotal = (int)(childTicketTotal);
+								textArea.append(childIntTicketTotal + "x Child Tickets to " + selectedMovieName + " " + selectedMovieTime + "     $" + childTotalPrice + "\r\n");
+								total = total + childTotalPrice;
+								textFieldTotal.setText(formatter.format(total));
+								textFieldTotal.repaint();
+							}
 					}
 				}	
 			});
