@@ -1,4 +1,7 @@
+package Movie;
+
 //testing
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
@@ -874,7 +877,9 @@ public class MovieKiosk extends JFrame
 						selectedMovieName = movieThreeName;
 						selectedMovieTime = strMovie3Time3;
 					}
-					
+					if(selectedMovieTime == ""){
+						JOptionPane.showMessageDialog(null,"You Must Select a Movie!");
+					}
 					if(seniorTicketTotal > 0) {
 						double seniorTotalPrice = (seniorTicketTotal * 9.00);
 						int seniorIntTicketTotal = (int)(seniorTicketTotal);
