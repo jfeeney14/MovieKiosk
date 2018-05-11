@@ -10,6 +10,8 @@ import java.net.ConnectException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import simpleSocketServer2.kiosk;
+
 public class socketUtils 
 {
 	Socket clientSocket=null;
@@ -62,6 +64,8 @@ public class socketUtils
 			ex.printStackTrace();
 	    }
 		
+		//kiosk k = new kiosk("Kiosk #" + "");
+		
 		return rc;
 	}
 	
@@ -73,6 +77,7 @@ public class socketUtils
 		{
 			outToServer.writeBytes("DataEntry>" + msg + "\r\n");
 			rc = true;
+			
 		}
 		catch (IOException e)
 		{
