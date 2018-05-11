@@ -1,5 +1,4 @@
 
-
 package simpleSocketServer2;
 
 import java.awt.EventQueue;
@@ -178,6 +177,15 @@ public class sss2 extends JFrame
 		
 		JButton btnNewButton_3 = new JButton("Summary");
 		panel_6.add(btnNewButton_3);
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				JOptionPane.showMessageDialog(null, 
+	                      sockServer.getAllTransactions(),
+	                      "Socket Server - Query #3",
+	                      JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
 		
 		JPanel panel_7 = new JPanel();
 		panel_7.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -190,7 +198,7 @@ public class sss2 extends JFrame
 		textArea_1.setRows(2);
 		textArea_1.setColumns(36);
 		panel_7.add(textArea_1);
-		
+	
 		JPanel panel_8 = new JPanel();
 		panel_8.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_8.setBounds(10, 382, 871, 73);
@@ -208,6 +216,15 @@ public class sss2 extends JFrame
 		
 		JButton btnNewButton_4 = new JButton("Ticket Sales");
 		panel_9.add(btnNewButton_4);
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				JOptionPane.showMessageDialog(null, 
+	                      sockServer.getAllTransactions(),
+	                      "Socket Server - Query #3",
+	                      JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
 		
 		JPanel panel_10 = new JPanel();
 		panel_10.setBounds(688, 466, 103, 109);
