@@ -1,4 +1,5 @@
 
+
 package simpleSocketServer2;
 
 import java.io.IOException;
@@ -91,6 +92,7 @@ public class sockServer implements Runnable
 	     clients.put("kiosk#2", new kiosk("kiosk#2", 0, 0, 0.0));
 	     clients.put("kiosk#3", new kiosk("kiosk#3", 0, 0, 0.0));
 	     
+	     
 	     sessionDone = false;
 	     while (sessionDone == false)
 	     {
@@ -132,181 +134,252 @@ public class sockServer implements Runnable
 					
 			return rs;
 		}
+	   
+	   public static String getAllTickets()
+		{
+			String rs="";
+			
+			rs = clients.get("kiosk#1").toString()      + "\r\n";
+			rs = rs + clients.get("kiosk#2").toString() + "\r\n";
+			rs = rs + clients.get("kiosk#3").toString() + "\r\n";
+					
+			return rs;
+		}
+	   
+	   public static String getAllFood()
+		{
+			String rs="";
+			
+			rs = clients.get("kiosk#1").toString()      + "\r\n";
+			rs = rs + clients.get("kiosk#2").toString() + "\r\n";
+			rs = rs + clients.get("kiosk#3").toString() + "\r\n";
+					
+			return rs;
+		}
+	   
+	   static synchronized void hashOperation(char type, String key, String ticks, String d)
+		{
+			switch (type)
+			{
+				case 'T':
+					if (clients.containsKey(key) == true)
+			        {
+						clients.get(key).incrementTrans();
+						clients.get(key).addTickets(Integer.parseInt(ticks));
+						clients.get(key).addDollars(Double.parseDouble(d));
+			        }	
+				break;
+			}
+		}
 
 	// This is the thread code that ALL clients will run()
-	public void run()
-	{
-	   try
-	   {
-		  boolean session_done = false; 
-	      long threadId;
-	      String clientString;
-	      String keyString = "";
-	    
-	      threadId = Thread.currentThread().getId();
-	      
-	      numOfConnections++;
-	      
-	      sss2.textArea.append("Num of Connections = " + numOfConnections + newline);
-	      sss2.textArea.setCaretPosition(sss2.textArea.getDocument().getLength());
-	      sss2.textArea.repaint();
-	      
-	      keyString = ipString + ":" + threadId;
-	      
-	      if (vec.contains(keyString) == false)
-	        {
-	    	    int counter = 0;
-	        	vec.addElement(keyString);
-	        	
-	        	sss2.textArea_2.setText("");
-	        	Enumeration<String> en = vec.elements();
-	        	while (en.hasMoreElements())
-	        	{
-	        		sss2.textArea_2.append(en.nextElement() + " || ");
-	        		
-	        		if (++counter >= 6)
-	        		{
-	        			sss2.textArea_2.append("\r\n");
-	        			counter = 0;
-	        		}
-	        	}
-
-  	            sss2.textArea_2.repaint();
-	        }
-	       
-	      PrintStream pstream = new PrintStream (csocket.getOutputStream());
-	      BufferedReader rstream = new BufferedReader(new InputStreamReader(csocket.getInputStream()));
-	       
-	      while (session_done == false)
-	      {
-	       	if (rstream.ready())   // check for any data messages
-	       	{
-	              clientString = rstream.readLine();
-	              
-	              // update the status text area to show progress of program
-	   	           sss2.textArea.append("RECV : " + clientString + newline);
-	     	       sss2.textArea.setCaretPosition(sss2.textArea.getDocument().getLength());
-	     	       sss2.textArea.repaint();
-	     	       // update the status text area to show progress of program
-	     	       sss2.textArea.append("RLEN : " + clientString.length() + newline);
-	     	       sss2.textArea.setCaretPosition(sss2.textArea.getDocument().getLength());
-	     	       sss2.textArea.repaint();
-	              
-	              if (clientString.length() > 128)
-	              {
-	           	   session_done = true;
-	           	   continue;
-	              }
-
-	              if (clientString.contains("quit"))
-	              {
-	                 session_done = true;
-	              }
-	              else if (clientString.contains("QUIT"))
-	              {
-	                 session_done = true;
-	              }
-	              else if (clientString.contains("Quit"))
-	              {
-	                 session_done = true;
-	              }
-	              else if (clientString.contains("Date>"))
-	              {
-	            	numOfMessages++;
-	            	  
-	            	// Create an instance of SimpleDateFormat used for formatting 
-	            	// the string representation of date (month/day/year)
-	            	DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-
-	            	// Get the date today using Calendar object.
-	            	Date today = Calendar.getInstance().getTime();
-	            	
-	            	// Using DateFormat format method we can create a string 
-	            	// representation of a date with the defined format.
-	            	String reportDate = df.format(today);
-
-	            	// Print what date is today!
-	            	pstream.println("Num Of Messages : " + numOfMessages + "   Simple Date: " + reportDate);
-	              }
-	       	   }
-	         			    		        	
-	           Thread.sleep(500);
-	           
-	        }    // end while loop
-	
-            keyString = ipString + ":" + threadId;
-	      
-	        if (vec.contains(keyString) == true)
-	        {
-	        	int counter = 0;
-	        	vec.removeElement(keyString);
-	        	
-	        	sss2.textArea_2.setText("");
-	        	Enumeration<String> en = vec.elements();
-	        	while (en.hasMoreElements())
-	        	{        		     		
-                    sss2.textArea_2.append(en.nextElement() + " || ");
-	        		
-	        		if (++counter >= 6)
-	        		{
-	        			sss2.textArea_2.append("\r\n");
-	        			counter = 0;
-	        		}
-	        	}
-
-  	            sss2.textArea_2.repaint();
-	        }
-	      
-	        numOfConnections--;
-
-	        // close client socket
-	        csocket.close();
-	       
-	        // update the status text area to show progress of program
-		     sss2.textArea.append("Child Thread : " + threadId + " : is Exiting!!!" + newline);
-		     sss2.textArea.append("Num of Connections = " + numOfConnections);
-		     sss2.textArea.setCaretPosition(sss2.textArea.getDocument().getLength());
-		     sss2.textArea.repaint();
-		     
-	     } // end try  
-	 
-	     catch (SocketException e)
-	     {
-		  // update the status text area to show progress of program
-	      sss2.textArea.append("ERROR : Socket Exception!" + newline);
-	      sss2.textArea.setCaretPosition(sss2.textArea.getDocument().getLength());
-	      sss2.textArea.repaint();
-	     }
-	     catch (InterruptedException e)
-	     {
-		  // update the status text area to show progress of program
-	      sss2.textArea.append("ERROR : Interrupted Exception!" + newline);
-	      sss2.textArea.setCaretPosition(sss2.textArea.getDocument().getLength());
-	      sss2.textArea.repaint();
-	     }
-	     catch (UnknownHostException e)
-	     {
-		  // update the status text area to show progress of program
-	      sss2.textArea.append("ERROR : Unkonw Host Exception" + newline);
-	      sss2.textArea.setCaretPosition(sss2.textArea.getDocument().getLength());
-	      sss2.textArea.repaint();
-	     }
-	     catch (IOException e) 
-	     {
-	     // update the status text area to show progress of program
-	      sss2.textArea.append("ERROR : IO Exception!" + newline);
-	      sss2.textArea.setCaretPosition(sss2.textArea.getDocument().getLength());
-	      sss2.textArea.repaint();       
-	     }     
-	     catch (Exception e)
-	     { 
-		  numOfConnections--;
-		  
-		  // update the status text area to show progress of program
-	      sss2.textArea.append("ERROR : Generic Exception!" + newline);
-	      sss2.textArea.setCaretPosition(sss2.textArea.getDocument().getLength());
-	      sss2.textArea.repaint(); 
-	     }
 	   
-	  }  // end run thread method
+		public void run()
+		{
+		   try
+		   {
+			  boolean session_done = false; 
+		      long threadId;
+		      String clientString;
+		      String keyString = "";
+		    
+		      threadId = Thread.currentThread().getId();
+		      
+		      numOfConnections++;
+		      
+		      sss2.textArea.append("Num of Connections = " + numOfConnections + newline);
+		      sss2.textArea.setCaretPosition(sss2.textArea.getDocument().getLength());
+		      sss2.textArea.repaint();
+		      
+		      keyString = ipString + ":" + threadId;
+		      
+		      if (vec.contains(keyString) == false)
+		        {
+		    	    int counter = 0;
+		        	vec.addElement(keyString);
+		        	
+		        	sss2.textArea_2.setText("");
+		        	Enumeration<String> en = vec.elements();
+		        	while (en.hasMoreElements())
+		        	{
+		        		sss2.textArea_2.append(en.nextElement() + " || ");
+		        		
+		        		if (++counter >= 6)
+		        		{
+		        			sss2.textArea_2.append("\r\n");
+		        			counter = 0;
+		        		}
+		        	}
+
+	  	            sss2.textArea_2.repaint();
+		        }
+		       
+		      PrintStream pstream = new PrintStream (csocket.getOutputStream());
+		      BufferedReader rstream = new BufferedReader(new InputStreamReader(csocket.getInputStream()));
+		       
+		      while (session_done == false)
+		      {
+		       	if (rstream.ready())   // check for any data messages
+		       	{
+		              clientString = rstream.readLine();
+		              
+		              // update the status text area to show progress of program
+		   	           sss2.textArea.append("RECV : " + clientString + newline);
+		     	       sss2.textArea.setCaretPosition(sss2.textArea.getDocument().getLength());
+		     	       sss2.textArea.repaint();
+		     	       // update the status text area to show progress of program
+		     	       sss2.textArea.append("RLEN : " + clientString.length() + newline);
+		     	       sss2.textArea.setCaretPosition(sss2.textArea.getDocument().getLength());
+		     	       sss2.textArea.repaint();
+		              
+		              if (clientString.length() > 128)
+		              {
+		           	   session_done = true;
+		           	   continue;
+		              }
+
+		              if (clientString.contains("quit"))
+		              {
+		                 session_done = true;
+		              }
+		              else if (clientString.contains("QUIT"))
+		              {
+		                 session_done = true;
+		              }
+		              else if (clientString.contains("Quit"))
+		              {
+		                 session_done = true;
+		              }
+		              else if (clientString.contains("Query>"))
+		              {
+		            	  String tokens[] = clientString.split("\\>");
+		            	  
+		            	  if (clients.containsKey(tokens[1]) == true)
+		            	  {
+		            		  pstream.println(clients.get(tokens[1]).toString());  
+		            	  }
+		            	  else
+		            	  {
+		            		  pstream.println("NACK : ERROR : No such kiosk number!");
+		            	  }
+		              }
+		              else if (clientString.contains("Transaction>"))
+		              {
+		            	  String tokens[] = clientString.split("\\>");
+		            	  String args[]   = tokens[1].split("\\,");
+		            	  
+		            	  if (clients.containsKey(args[0]) == true)
+		            	  {
+		            		  hashOperation('T', args[0], args[1], args[2]);
+		            		  
+		            		  pstream.println("ACK");
+		            	  }
+		            	  else
+		            	  {
+		            		  pstream.println("NACK : ERROR : No such kiosk number!");
+		            	  }
+		              }
+		              else if (clientString.contains("Date>"))
+		              {
+		            	numOfMessages++;
+		            	  
+		            	// Create an instance of SimpleDateFormat used for formatting 
+		            	// the string representation of date (month/day/year)
+		            	DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+
+		            	// Get the date today using Calendar object.
+		            	Date today = Calendar.getInstance().getTime();
+		            	
+		            	// Using DateFormat format method we can create a string 
+		            	// representation of a date with the defined format.
+		            	String reportDate = df.format(today);
+
+		            	// Print what date is today!
+		            	pstream.println("Num Of Messages : " + numOfMessages + "   Simple Date: " + reportDate);
+		              }
+		              else
+		              {
+		            	  pstream.println("NACK : ERROR : No such command!");
+		              }
+		       	   }
+		         			    		        	
+		           Thread.sleep(500);
+		           
+		        }    // end while loop
+		
+	            keyString = ipString + ":" + threadId;
+		      
+		        if (vec.contains(keyString) == true)
+		        {
+		        	int counter = 0;
+		        	vec.removeElement(keyString);
+		        	
+		        	sss2.textArea_2.setText("");
+		        	Enumeration<String> en = vec.elements();
+		        	while (en.hasMoreElements())
+		        	{        		     		
+	                    sss2.textArea_2.append(en.nextElement() + " || ");
+		        		
+		        		if (++counter >= 6)
+		        		{
+		        			sss2.textArea_2.append("\r\n");
+		        			counter = 0;
+		        		}
+		        	}
+
+	  	            sss2.textArea_2.repaint();
+		        }
+		      
+		        numOfConnections--;
+
+		        // close client socket
+		        csocket.close();
+		       
+		        // update the status text area to show progress of program
+			     sss2.textArea.append("Child Thread : " + threadId + " : is Exiting!!!" + newline);
+			     sss2.textArea.append("Num of Connections = " + numOfConnections);
+			     sss2.textArea.setCaretPosition(sss2.textArea.getDocument().getLength());
+			     sss2.textArea.repaint();
+			     
+		     } // end try  
+		 
+		     catch (SocketException e)
+		     {
+			  // update the status text area to show progress of program
+		      sss2.textArea.append("ERROR : Socket Exception!" + newline);
+		      sss2.textArea.setCaretPosition(sss2.textArea.getDocument().getLength());
+		      sss2.textArea.repaint();
+		     }
+		     catch (InterruptedException e)
+		     {
+			  // update the status text area to show progress of program
+		      sss2.textArea.append("ERROR : Interrupted Exception!" + newline);
+		      sss2.textArea.setCaretPosition(sss2.textArea.getDocument().getLength());
+		      sss2.textArea.repaint();
+		     }
+		     catch (UnknownHostException e)
+		     {
+			  // update the status text area to show progress of program
+		      sss2.textArea.append("ERROR : Unkonw Host Exception" + newline);
+		      sss2.textArea.setCaretPosition(sss2.textArea.getDocument().getLength());
+		      sss2.textArea.repaint();
+		     }
+		     catch (IOException e) 
+		     {
+		     // update the status text area to show progress of program
+		      sss2.textArea.append("ERROR : IO Exception!" + newline);
+		      sss2.textArea.setCaretPosition(sss2.textArea.getDocument().getLength());
+		      sss2.textArea.repaint();       
+		     }     
+		     catch (Exception e)
+		     { 
+			  numOfConnections--;
+			  
+			  // update the status text area to show progress of program
+		      sss2.textArea.append("ERROR : Generic Exception!" + newline);
+		      sss2.textArea.setCaretPosition(sss2.textArea.getDocument().getLength());
+		      sss2.textArea.repaint(); 
+		     }
+		   
+		  }  // end run() thread method
 }
