@@ -6,6 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+
+import simpleSocketServer2.kiosk;
+
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
@@ -142,7 +145,7 @@ public class MovieKiosk extends JFrame
 					
 					String text = textFieldCashTendered.getText();
 					double intCT = Integer.parseInt(text);
-					double change = intCT - total;
+					change = intCT - total;
 					
 					if(change < 0)
 					{ JOptionPane.showMessageDialog(null,"Insufficient Cash Tendered"); 
@@ -160,16 +163,31 @@ public class MovieKiosk extends JFrame
 							
 							if (su.socketConnect() == true)
 							{				
-								su.sendMessage("Transaction total:"+ total +"");
-								String recvMsgStr = su.recvMessage();
-								su.sendMessage("QUIT>");
+								 su.sendMessage("Transaction total:"+ total);
+								 textFieldCashTendered.setText("0.00");
+									textFieldTotal.setText("0.00");
+									total = 0.0;
+								    change = 0.0;
+									seniorTicketTotal = 0.0;
+									adultTicketTotal = 0.0;
+									childTicketTotal = 0.0;
+									amountChildTickets.setText("0.00");
+									amountAdultTickets.setText("0.00");
+									amountSeniorTickets.setText("0.00");
+									m1t1 = false;
+									m1t2 = false;
+									m1t3 = false;
+									m1t4 = false;
+									m2t1 = false;
+									m2t2 = false;
+									m3t1 = false;
+									m3t2 = false;
+									m3t3 = false;
+									selectedMovieName = "";
+									selectedMovieTime = "";
+									textArea.setText(null);
+							     
 								
-								su.closeSocket();
-								
-								JOptionPane.showMessageDialog(null, 
-				                        "Message : " + recvMsgStr,
-				                        "Client",
-				                        JOptionPane.WARNING_MESSAGE);
 							}
 							else
 							{
@@ -183,31 +201,13 @@ public class MovieKiosk extends JFrame
 		            t.start();
 					}
 		            
-		            textFieldCashTendered.setText("0.00");
-					textFieldTotal.setText("0.00");
-					total = 0.0;
-					change = 0.0;
-					seniorTicketTotal = 0.0;
-					adultTicketTotal = 0.0;
-					childTicketTotal = 0.0;
-					amountChildTickets.setText("0.00");
-					amountAdultTickets.setText("0.00");
-					amountSeniorTickets.setText("0.00");
-					m1t1 = false;
-					m1t2 = false;
-					m1t3 = false;
-					m1t4 = false;
-					m2t1 = false;
-					m2t2 = false;
-					m3t1 = false;
-					m3t2 = false;
-					m3t3 = false;
-					selectedMovieName = "";
-					selectedMovieTime = "";
-					textArea.setText(null);
+		           
 					
 				}
 			});
+			
+			
+			
 			btnNewButton_done.setBounds(879, 650, 250, 34);
 			contentPane.add(btnNewButton_done);
 			
@@ -928,3 +928,4 @@ public class MovieKiosk extends JFrame
 			
 		}
 }
+
