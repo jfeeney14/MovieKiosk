@@ -1,4 +1,7 @@
+
+
 //testing
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
@@ -6,6 +9,9 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.awt.event.ActionEvent;
@@ -16,6 +22,7 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.SwingConstants;
+import java.io.IOException;
 
 public class MovieKiosk extends JFrame
 {
@@ -57,11 +64,14 @@ public class MovieKiosk extends JFrame
 		String strMovie3Time1 = "";
 		String strMovie3Time2 = "";
 		String strMovie3Time3 = "";
+		String strKioskName = "";
+		
+		Basket basket = new Basket();
 		
 		/**
 		 * Launch the application.
 		 */
-		public static void main(String[] args)
+		public static void main(String[] args)  throws FileNotFoundException, IOException
 		{
 			MovieKiosk frame = new MovieKiosk();
 			frame.setVisible(true);
@@ -139,7 +149,27 @@ public class MovieKiosk extends JFrame
 					
 					String text = textFieldCashTendered.getText();
 					double intCT = Integer.parseInt(text);
-					double change = intCT - total;
+					change = intCT - basket.getTotal();
+					String strTotal = Double.toString(total);
+					int totalTickets = (int) (seniorTicketTotal + adultTicketTotal + childTicketTotal);
+					String strTotTicket = Integer.toString(totalTickets);
+					try {
+					    //@SuppressWarnings("resource")
+						BufferedReader brTest = new BufferedReader (new FileReader("kioskConfig.txt"));
+					    strKioskName = brTest.readLine();
+					} catch (FileNotFoundException ex) {
+					    // Do something
+					} catch (IOException ex2) {
+					    // Do something
+					}
+
+				        
+					if(change < 0)
+					{ JOptionPane.showMessageDialog(null,"Insufficient Cash Tendered"); 
+					
+					}
+					
+					else {
 					textFieldChangeDue.setText(Double.toString(change));
 					
 					Thread t = new Thread(new Runnable()
@@ -150,16 +180,39 @@ public class MovieKiosk extends JFrame
 							
 							if (su.socketConnect() == true)
 							{				
-								su.sendMessage("Transaction total:"+ total +"");
-								String recvMsgStr = su.recvMessage();
-								su.sendMessage("QUIT>");
+								 // name, kiosk, type, price
+								 for (int i = 0; i < basket.getSize(); i++) {
+									 su.sendTransactionMessage(basket.getItem(i).getName()+","+strKioskName+","+basket.getItem(i).getItemType()+","+basket.getItem(i).getPrice());
+								 }
+								 su.sendEndTransactionMessage(strKioskName);
+								 
+								 // reset the basket
+								 basket = new Basket();
+								 
+								 textFieldCashTendered.setText("0.00");
+									textFieldTotal.setText("0.00");
+									total = 0.0;
+								    change = 0.0;
+									seniorTicketTotal = 0.0;
+									adultTicketTotal = 0.0;
+									childTicketTotal = 0.0;
+									amountChildTickets.setText("0.00");
+									amountAdultTickets.setText("0.00");
+									amountSeniorTickets.setText("0.00");
+									m1t1 = false;
+									m1t2 = false;
+									m1t3 = false;
+									m1t4 = false;
+									m2t1 = false;
+									m2t2 = false;
+									m3t1 = false;
+									m3t2 = false;
+									m3t3 = false;
+									selectedMovieName = "";
+									selectedMovieTime = "";
+									textArea.setText(null);
+							     
 								
-								su.closeSocket();
-								
-								JOptionPane.showMessageDialog(null, 
-				                        "Message : " + recvMsgStr,
-				                        "Client",
-				                        JOptionPane.WARNING_MESSAGE);
 							}
 							else
 							{
@@ -171,32 +224,15 @@ public class MovieKiosk extends JFrame
 						}
 					});
 		            t.start();
+					}
 		            
-		            textFieldCashTendered.setText("0.00");
-					textFieldTotal.setText("0.00");
-					total = 0.0;
-					change = 0.0;
-					seniorTicketTotal = 0.0;
-					adultTicketTotal = 0.0;
-					childTicketTotal = 0.0;
-					amountChildTickets.setText("0.00");
-					amountAdultTickets.setText("0.00");
-					amountSeniorTickets.setText("0.00");
-					m1t1 = false;
-					m1t2 = false;
-					m1t3 = false;
-					m1t4 = false;
-					m2t1 = false;
-					m2t2 = false;
-					m3t1 = false;
-					m3t2 = false;
-					m3t3 = false;
-					selectedMovieName = "";
-					selectedMovieTime = "";
-					textArea.setText(null);
+		           
 					
 				}
 			});
+			
+			
+			
 			btnNewButton_done.setBounds(879, 650, 250, 34);
 			contentPane.add(btnNewButton_done);
 			
@@ -212,10 +248,10 @@ public class MovieKiosk extends JFrame
 			btnSnickers.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					textArea.append("Snickers      $1.50\r\n");
-					total = total + 1.50;
-					
-					textFieldTotal.setText(formatter.format(total));
+					BasketItem basketItem = new BasketItem("Snickers", "snack", 1.50);
+					basket.addItem(basketItem);
+					textArea.append(basketItem.toString()+"\r\n");
+					textFieldTotal.setText(formatter.format(basket.getTotal()));
 					textFieldTotal.repaint();
 				}
 			});		
@@ -228,10 +264,10 @@ public class MovieKiosk extends JFrame
 			btnMMs.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					textArea.append("M&Ms      $1.50\r\n");
-					total = total + 1.50;
-					
-					textFieldTotal.setText(formatter.format(total));
+					BasketItem basketItem = new BasketItem("M&Ms", "snack", 1.50);
+					basket.addItem(basketItem);
+					textArea.append(basketItem.toString()+"\r\n");
+					textFieldTotal.setText(formatter.format(basket.getTotal()));
 					textFieldTotal.repaint();
 				}
 			});
@@ -244,10 +280,10 @@ public class MovieKiosk extends JFrame
 			btnPMMs.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					textArea.append("Peanut M&Ms      $1.50\r\n");
-					total = total + 1.50;
-					
-					textFieldTotal.setText(formatter.format(total));
+					BasketItem basketItem = new BasketItem("Peanut M&Ms", "snack", 1.50);
+					basket.addItem(basketItem);
+					textArea.append(basketItem.toString()+"\r\n");
+					textFieldTotal.setText(formatter.format(basket.getTotal()));
 					textFieldTotal.repaint();
 				}
 			});
@@ -267,10 +303,10 @@ public class MovieKiosk extends JFrame
 			smPopcorn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					textArea.append("Small Popcorn      $5.50\r\n");
-					total = total + 5.50;
-					
-					textFieldTotal.setText(formatter.format(total));
+					BasketItem basketItem = new BasketItem("Sm Popcorn", "snack", 5.50);
+					basket.addItem(basketItem);
+					textArea.append(basketItem.toString()+"\r\n");
+					textFieldTotal.setText(formatter.format(basket.getTotal()));
 					textFieldTotal.repaint();
 				}
 			});
@@ -282,10 +318,10 @@ public class MovieKiosk extends JFrame
 			mePopcorn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					textArea.append("Medium Popcorn      $6.50\r\n");
-					total = total + 6.50;
-					
-					textFieldTotal.setText(formatter.format(total));
+					BasketItem basketItem = new BasketItem("Md Popcorn", "snack", 6.50);
+					basket.addItem(basketItem);
+					textArea.append(basketItem.toString()+"\r\n");
+					textFieldTotal.setText(formatter.format(basket.getTotal()));
 					textFieldTotal.repaint();
 				}
 			});
@@ -297,10 +333,10 @@ public class MovieKiosk extends JFrame
 			lgPopcorn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					textArea.append("Large Popcorn      $7.50\r\n");
-					total = total + 7.50;
-					
-					textFieldTotal.setText(formatter.format(total));
+					BasketItem basketItem = new BasketItem("Lg Popcorn", "snack", 7.50);
+					basket.addItem(basketItem);
+					textArea.append(basketItem.toString()+"\r\n");
+					textFieldTotal.setText(formatter.format(basket.getTotal()));
 					textFieldTotal.repaint();
 				}
 			});
@@ -322,10 +358,10 @@ public class MovieKiosk extends JFrame
 			smSoda.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					textArea.append("Small Soda      $2.50\r\n");
-					total = total + 2.50;
-					
-					textFieldTotal.setText(formatter.format(total));
+					BasketItem basketItem = new BasketItem("Sm Soda", "drink", 2.50);
+					basket.addItem(basketItem);
+					textArea.append(basketItem.toString()+"\r\n");
+					textFieldTotal.setText(formatter.format(basket.getTotal()));
 					textFieldTotal.repaint();
 				}
 			});
@@ -337,10 +373,10 @@ public class MovieKiosk extends JFrame
 			meSoda.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					textArea.append("Medium Soda      $3.00\r\n");
-					total = total + 3.00;
-					
-					textFieldTotal.setText(formatter.format(total));
+					BasketItem basketItem = new BasketItem("Me Soda", "drink", 3.00);
+					basket.addItem(basketItem);
+					textArea.append(basketItem.toString()+"\r\n");
+					textFieldTotal.setText(formatter.format(basket.getTotal()));
 					textFieldTotal.repaint();
 				}
 			});
@@ -352,10 +388,10 @@ public class MovieKiosk extends JFrame
 			lgSoda.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					textArea.append("Large Soda      $3.50\r\n");
-					total = total + 3.50;
-					
-					textFieldTotal.setText(formatter.format(total));
+					BasketItem basketItem = new BasketItem("Lg Soda", "drink", 3.50);
+					basket.addItem(basketItem);
+					textArea.append(basketItem.toString()+"\r\n");
+					textFieldTotal.setText(formatter.format(basket.getTotal()));
 					textFieldTotal.repaint();
 				}
 			});
@@ -373,10 +409,10 @@ public class MovieKiosk extends JFrame
 			smWater.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					textArea.append("Small Water      $1.25\r\n");
-					total = total + 1.25;
-					
-					textFieldTotal.setText(formatter.format(total));
+					BasketItem basketItem = new BasketItem("Sm Water", "drink", 1.25);
+					basket.addItem(basketItem);
+					textArea.append(basketItem.toString()+"\r\n");
+					textFieldTotal.setText(formatter.format(basket.getTotal()));
 					textFieldTotal.repaint();
 				}
 			});
@@ -388,10 +424,10 @@ public class MovieKiosk extends JFrame
 			meWater.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					textArea.append("Medium Water      $1.50\r\n");
-					total = total + 1.50;
-					
-					textFieldTotal.setText(formatter.format(total));
+					BasketItem basketItem = new BasketItem("Md Water", "drink", 1.50);
+					basket.addItem(basketItem);
+					textArea.append(basketItem.toString()+"\r\n");
+					textFieldTotal.setText(formatter.format(basket.getTotal()));
 					textFieldTotal.repaint();
 				}
 			});
@@ -403,10 +439,10 @@ public class MovieKiosk extends JFrame
 			lgWater.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					textArea.append("Large Water      $1.75\r\n");
-					total = total + 1.75;
-					
-					textFieldTotal.setText(formatter.format(total));
+					BasketItem basketItem = new BasketItem("Lg Water", "drink", 1.75);
+					basket.addItem(basketItem);
+					textArea.append(basketItem.toString()+"\r\n");
+					textFieldTotal.setText(formatter.format(basket.getTotal()));
 					textFieldTotal.repaint();
 				}
 			});
@@ -424,10 +460,10 @@ public class MovieKiosk extends JFrame
 			smICEE.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					textArea.append("Small ICEE      $3.00\r\n");
-					total = total + 3.00;
-					
-					textFieldTotal.setText(formatter.format(total));
+					BasketItem basketItem = new BasketItem("Sm ICEE", "drink", 3.00);
+					basket.addItem(basketItem);
+					textArea.append(basketItem.toString()+"\r\n");
+					textFieldTotal.setText(formatter.format(basket.getTotal()));
 					textFieldTotal.repaint();
 				}
 			});
@@ -439,10 +475,10 @@ public class MovieKiosk extends JFrame
 			meICEE.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					textArea.append("Medium ICEE      $3.50\r\n");
-					total = total + 3.50;
-					
-					textFieldTotal.setText(formatter.format(total));
+					BasketItem basketItem = new BasketItem("Md ICEE", "drink", 3.50);
+					basket.addItem(basketItem);
+					textArea.append(basketItem.toString()+"\r\n");
+					textFieldTotal.setText(formatter.format(basket.getTotal()));
 					textFieldTotal.repaint();
 				}
 			});
@@ -454,10 +490,10 @@ public class MovieKiosk extends JFrame
 			lgICEE.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					textArea.append("Large ICEE      $4.00\r\n");
-					total = total + 4.00;
-					
-					textFieldTotal.setText(formatter.format(total));
+					BasketItem basketItem = new BasketItem("Lg ICEE", "drink", 4.00);
+					basket.addItem(basketItem);
+					textArea.append(basketItem.toString()+"\r\n");
+					textFieldTotal.setText(formatter.format(basket.getTotal()));
 					textFieldTotal.repaint();
 				}
 			});
@@ -875,31 +911,47 @@ public class MovieKiosk extends JFrame
 						selectedMovieTime = strMovie3Time3;
 					}
 					
-					if(seniorTicketTotal > 0) {
-						double seniorTotalPrice = (seniorTicketTotal * 9.00);
-						int seniorIntTicketTotal = (int)(seniorTicketTotal);
-						textArea.append(seniorIntTicketTotal + "x Senior Tickets to " + selectedMovieName + " " + selectedMovieTime + "     $" + seniorTotalPrice + "\r\n");
-						total = total + seniorTotalPrice;
-						textFieldTotal.setText(formatter.format(total));
-						textFieldTotal.repaint();
+					if(selectedMovieTime == ""){
+						JOptionPane.showMessageDialog(null,"You Must Select a Movie!");
 					}
 					
-					if(adultTicketTotal > 0) {
-						double adultTotalPrice = (adultTicketTotal * 11.00);
-						int adultIntTicketTotal = (int)(adultTicketTotal);
-						textArea.append(adultIntTicketTotal + "x Adult Tickets to " + selectedMovieName + " " + selectedMovieTime + "     $" + adultTotalPrice + "\r\n");
-						total = total + adultTotalPrice;
-						textFieldTotal.setText(formatter.format(total));
-						textFieldTotal.repaint();
-					}
+						else{
 					
-					if(childTicketTotal > 0) {
-						double childTotalPrice = (childTicketTotal * 7.00);
-						int childIntTicketTotal = (int)(childTicketTotal);
-						textArea.append(childIntTicketTotal + "x Child Tickets to " + selectedMovieName + " " + selectedMovieTime + "     $" + childTotalPrice + "\r\n");
-						total = total + childTotalPrice;
-						textFieldTotal.setText(formatter.format(total));
-						textFieldTotal.repaint();
+							if(seniorTicketTotal > 0) {
+								double seniorTotalPrice = (seniorTicketTotal * 9.00);
+								int seniorIntTicketTotal = (int)(seniorTicketTotal);
+								for(int i = 0; i < seniorTicketTotal; i++) {
+									BasketItem basketItem = new BasketItem("seniorTicket to " + selectedMovieName , "ticket", 9.00);
+									basket.addItem(basketItem);
+								}
+								textArea.append(seniorIntTicketTotal + "x Senior Tickets to " + selectedMovieName + " " + selectedMovieTime + "     $" + seniorTotalPrice + "\r\n");
+								textFieldTotal.setText(formatter.format(basket.getTotal()));
+								textFieldTotal.repaint();
+							}
+					
+							if(adultTicketTotal > 0) {
+								double adultTotalPrice = (adultTicketTotal * 11.00);
+								int adultIntTicketTotal = (int)(adultTicketTotal);
+								for(int i = 0; i < adultTicketTotal; i++) {
+									BasketItem basketItem = new BasketItem("adultTicket to " + selectedMovieName , "ticket", 11.00);
+									basket.addItem(basketItem);
+								}
+								textArea.append(adultIntTicketTotal + "x Adult Tickets to " + selectedMovieName + " " + selectedMovieTime + "     $" + adultTotalPrice + "\r\n");
+								textFieldTotal.setText(formatter.format(basket.getTotal()));
+								textFieldTotal.repaint();
+							}
+					
+							if(childTicketTotal > 0) {
+								double childTotalPrice = (childTicketTotal * 7.00);
+								int childIntTicketTotal = (int)(childTicketTotal);
+								for(int i = 0; i < childTicketTotal; i++) {
+									BasketItem basketItem = new BasketItem("childTicket to " + selectedMovieName , "ticket", 7.00);
+									basket.addItem(basketItem);
+								}
+								textArea.append(childIntTicketTotal + "x Child Tickets to " + selectedMovieName + " " + selectedMovieTime + "     $" + childTotalPrice + "\r\n");
+								textFieldTotal.setText(formatter.format(basket.getTotal()));
+								textFieldTotal.repaint();
+							}
 					}
 				}	
 			});
@@ -910,3 +962,4 @@ public class MovieKiosk extends JFrame
 			
 		}
 }
+
